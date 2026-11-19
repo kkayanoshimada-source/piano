@@ -38,21 +38,40 @@ interface Song {
   notes: SheetNote[];
 }
 
-// パブリックドメイン（著作権フリー）楽曲 全13曲
+// 現在の鍵盤範囲（C4〜C5）で最初から最後まで演奏できるパブリックドメイン楽曲 全10曲
 const SONGS: Song[] = [
   {
     id: 'twinkle',
     title: 'きらきら星',
     composer: 'フランス民謡（PD）',
     notes: [
-      { time: 2.0, note: 'C4' }, { time: 2.6, note: 'C4' },
-      { time: 3.2, note: 'G4' }, { time: 3.8, note: 'G4' },
-      { time: 4.4, note: 'A4' }, { time: 5.0, note: 'A4' },
-      { time: 5.6, note: 'G4' },
-      { time: 6.8, note: 'F4' }, { time: 7.4, note: 'F4' },
-      { time: 8.0, note: 'E4' }, { time: 8.6, note: 'E4' },
-      { time: 9.2, note: 'D4' }, { time: 9.8, note: 'D4' },
-      { time: 10.4, note: 'C4' },
+      // Aメロ（きらきらひかる おそらのほしよ）
+      { time: 2.0, note: 'C4' }, { time: 2.55, note: 'C4' },
+      { time: 3.1, note: 'G4' }, { time: 3.65, note: 'G4' },
+      { time: 4.2, note: 'A4' }, { time: 4.75, note: 'A4' },
+      { time: 5.3, note: 'G4' },
+      { time: 6.4, note: 'F4' }, { time: 6.95, note: 'F4' },
+      { time: 7.5, note: 'E4' }, { time: 8.05, note: 'E4' },
+      { time: 8.6, note: 'D4' }, { time: 9.15, note: 'D4' },
+      { time: 9.7, note: 'C4' },
+      // Bメロ（まばたきしては みんなをみてる）
+      { time: 10.8, note: 'G4' }, { time: 11.35, note: 'G4' },
+      { time: 11.9, note: 'F4' }, { time: 12.45, note: 'F4' },
+      { time: 13.0, note: 'E4' }, { time: 13.55, note: 'E4' },
+      { time: 14.1, note: 'D4' },
+      { time: 15.2, note: 'G4' }, { time: 15.75, note: 'G4' },
+      { time: 16.3, note: 'F4' }, { time: 16.85, note: 'F4' },
+      { time: 17.4, note: 'E4' }, { time: 17.95, note: 'E4' },
+      { time: 18.5, note: 'D4' },
+      // Aメロ再現（きらきらひかる おそらのほしよ）
+      { time: 19.6, note: 'C4' }, { time: 20.15, note: 'C4' },
+      { time: 20.7, note: 'G4' }, { time: 21.25, note: 'G4' },
+      { time: 21.8, note: 'A4' }, { time: 22.35, note: 'A4' },
+      { time: 22.9, note: 'G4' },
+      { time: 24.0, note: 'F4' }, { time: 24.55, note: 'F4' },
+      { time: 25.1, note: 'E4' }, { time: 25.65, note: 'E4' },
+      { time: 26.2, note: 'D4' }, { time: 26.75, note: 'D4' },
+      { time: 27.3, note: 'C4' },
     ],
   },
   {
@@ -60,21 +79,23 @@ const SONGS: Song[] = [
     title: 'メリーさんのひつじ',
     composer: 'アメリカ民謡（PD）',
     notes: [
-      { time: 2.0, note: 'E4' }, { time: 2.55, note: 'D4' },
-      { time: 3.1, note: 'C4' }, { time: 3.65, note: 'D4' },
-      { time: 4.2, note: 'E4' }, { time: 4.75, note: 'E4' },
-      { time: 5.3, note: 'E4' },
-      { time: 6.3, note: 'D4' }, { time: 6.85, note: 'D4' },
-      { time: 7.4, note: 'D4' },
-      { time: 8.4, note: 'E4' }, { time: 8.95, note: 'G4' },
-      { time: 9.5, note: 'G4' },
-      { time: 10.5, note: 'E4' }, { time: 11.05, note: 'D4' },
-      { time: 11.6, note: 'C4' }, { time: 12.15, note: 'D4' },
-      { time: 12.7, note: 'E4' }, { time: 13.25, note: 'E4' },
-      { time: 13.8, note: 'E4' }, { time: 14.35, note: 'E4' },
-      { time: 14.9, note: 'D4' }, { time: 15.45, note: 'D4' },
-      { time: 16.0, note: 'E4' }, { time: 16.55, note: 'D4' },
-      { time: 17.1, note: 'C4' },
+      // 前半（メリーさんのひつじ メエメエひつじ）
+      { time: 2.0, note: 'E4' }, { time: 2.5, note: 'D4' },
+      { time: 3.0, note: 'C4' }, { time: 3.5, note: 'D4' },
+      { time: 4.0, note: 'E4' }, { time: 4.5, note: 'E4' },
+      { time: 5.0, note: 'E4' },
+      { time: 6.0, note: 'D4' }, { time: 6.5, note: 'D4' },
+      { time: 7.0, note: 'D4' },
+      { time: 8.0, note: 'E4' }, { time: 8.5, note: 'G4' },
+      { time: 9.0, note: 'G4' },
+      // 後半（メリーさんのひつじ まっしろだね）
+      { time: 10.0, note: 'E4' }, { time: 10.5, note: 'D4' },
+      { time: 11.0, note: 'C4' }, { time: 11.5, note: 'D4' },
+      { time: 12.0, note: 'E4' }, { time: 12.5, note: 'E4' },
+      { time: 13.0, note: 'E4' }, { time: 13.5, note: 'E4' },
+      { time: 14.0, note: 'D4' }, { time: 14.5, note: 'D4' },
+      { time: 15.0, note: 'E4' }, { time: 15.5, note: 'D4' },
+      { time: 16.0, note: 'C4' },
     ],
   },
   {
@@ -82,14 +103,41 @@ const SONGS: Song[] = [
     title: 'ちょうちょう',
     composer: 'スペイン民謡（PD）',
     notes: [
-      { time: 2.0, note: 'G4' }, { time: 2.55, note: 'E4' },
-      { time: 3.1, note: 'E4' },
-      { time: 4.1, note: 'F4' }, { time: 4.65, note: 'D4' },
-      { time: 5.2, note: 'D4' },
-      { time: 6.2, note: 'C4' }, { time: 6.75, note: 'D4' },
-      { time: 7.3, note: 'E4' }, { time: 7.85, note: 'F4' },
-      { time: 8.4, note: 'G4' }, { time: 8.95, note: 'G4' },
-      { time: 9.5, note: 'G4' },
+      // 1段目（ちょうちょう ちょうちょう なのはにとまれ）
+      { time: 2.0, note: 'G4' }, { time: 2.5, note: 'E4' },
+      { time: 3.0, note: 'E4' },
+      { time: 4.0, note: 'F4' }, { time: 4.5, note: 'D4' },
+      { time: 5.0, note: 'D4' },
+      { time: 6.0, note: 'C4' }, { time: 6.5, note: 'D4' },
+      { time: 7.0, note: 'E4' }, { time: 7.5, note: 'F4' },
+      { time: 8.0, note: 'G4' }, { time: 8.5, note: 'G4' },
+      { time: 9.0, note: 'G4' },
+      // 2段目（なのはにあいたら さくらにとまれ）
+      { time: 10.0, note: 'G4' }, { time: 10.5, note: 'E4' },
+      { time: 11.0, note: 'E4' }, { time: 11.5, note: 'E4' },
+      { time: 12.0, note: 'F4' }, { time: 12.5, note: 'D4' },
+      { time: 13.0, note: 'D4' }, { time: 13.5, note: 'D4' },
+      { time: 14.0, note: 'C4' }, { time: 14.5, note: 'E4' },
+      { time: 15.0, note: 'G4' }, { time: 15.5, note: 'G4' },
+      { time: 16.0, note: 'E4' }, { time: 16.5, note: 'E4' },
+      { time: 17.0, note: 'E4' },
+      // 3段目（さくらの はなの はなから はなに）
+      { time: 18.0, note: 'D4' }, { time: 18.5, note: 'D4' },
+      { time: 19.0, note: 'D4' }, { time: 19.5, note: 'D4' },
+      { time: 20.0, note: 'D4' }, { time: 20.5, note: 'E4' },
+      { time: 21.0, note: 'F4' },
+      { time: 22.0, note: 'E4' }, { time: 22.5, note: 'E4' },
+      { time: 23.0, note: 'E4' }, { time: 23.5, note: 'E4' },
+      { time: 24.0, note: 'E4' }, { time: 24.5, note: 'F4' },
+      { time: 25.0, note: 'G4' },
+      // 4段目（とまれよ あそべ あそべよ とまれ）
+      { time: 26.0, note: 'G4' }, { time: 26.5, note: 'E4' },
+      { time: 27.0, note: 'E4' },
+      { time: 28.0, note: 'F4' }, { time: 28.5, note: 'D4' },
+      { time: 29.0, note: 'D4' },
+      { time: 30.0, note: 'C4' }, { time: 30.5, note: 'E4' },
+      { time: 31.0, note: 'G4' }, { time: 31.5, note: 'G4' },
+      { time: 32.0, note: 'C4' },
     ],
   },
   {
@@ -97,14 +145,26 @@ const SONGS: Song[] = [
     title: 'かえるのうた',
     composer: 'ドイツ民謡（PD）',
     notes: [
+      // 1フレーズ目（かえるのうたが）
       { time: 2.0, note: 'C4' }, { time: 2.5, note: 'D4' },
       { time: 3.0, note: 'E4' }, { time: 3.5, note: 'F4' },
       { time: 4.0, note: 'E4' }, { time: 4.5, note: 'D4' },
       { time: 5.0, note: 'C4' },
+      // 2フレーズ目（きこえてくるよ）
       { time: 6.0, note: 'E4' }, { time: 6.5, note: 'F4' },
       { time: 7.0, note: 'G4' }, { time: 7.5, note: 'A4' },
       { time: 8.0, note: 'G4' }, { time: 8.5, note: 'F4' },
       { time: 9.0, note: 'E4' },
+      // 3フレーズ目（クワッ クワッ クワッ クワッ）
+      { time: 10.0, note: 'C4' }, { time: 11.0, note: 'C4' },
+      { time: 12.0, note: 'C4' }, { time: 13.0, note: 'C4' },
+      // 4フレーズ目（ケロケロケロケロ クワックワックワッ）
+      { time: 14.0, note: 'C4' }, { time: 14.28, note: 'C4' },
+      { time: 14.56, note: 'D4' }, { time: 14.84, note: 'D4' },
+      { time: 15.12, note: 'E4' }, { time: 15.4, note: 'E4' },
+      { time: 15.68, note: 'F4' }, { time: 15.96, note: 'F4' },
+      { time: 16.3, note: 'E4' }, { time: 16.8, note: 'D4' },
+      { time: 17.3, note: 'C4' },
     ],
   },
   {
@@ -112,6 +172,7 @@ const SONGS: Song[] = [
     title: 'むすんでひらいて',
     composer: 'ルソー作曲（PD）',
     notes: [
+      // 前半（むすんで ひらいて てをうって むすんで）
       { time: 2.0, note: 'C4' }, { time: 2.5, note: 'C4' },
       { time: 3.0, note: 'D4' }, { time: 3.5, note: 'D4' },
       { time: 4.0, note: 'E4' }, { time: 4.5, note: 'E4' },
@@ -120,6 +181,23 @@ const SONGS: Song[] = [
       { time: 7.0, note: 'E4' }, { time: 7.5, note: 'E4' },
       { time: 8.0, note: 'D4' }, { time: 8.5, note: 'D4' },
       { time: 9.0, note: 'D4' },
+      // 中盤（またひらいて てをうって そのてをうえに）
+      { time: 10.0, note: 'E4' }, { time: 10.5, note: 'E4' },
+      { time: 11.0, note: 'F4' }, { time: 11.5, note: 'F4' },
+      { time: 12.0, note: 'G4' }, { time: 12.5, note: 'G4' },
+      { time: 13.0, note: 'G4' },
+      { time: 14.0, note: 'A4' }, { time: 14.5, note: 'A4' },
+      { time: 15.0, note: 'G4' }, { time: 15.5, note: 'F4' },
+      { time: 16.0, note: 'E4' }, { time: 16.5, note: 'D4' },
+      { time: 17.0, note: 'C4' },
+      // 後半（むすんで ひらいて てをうって むすんで）
+      { time: 18.0, note: 'C4' }, { time: 18.5, note: 'C4' },
+      { time: 19.0, note: 'D4' }, { time: 19.5, note: 'D4' },
+      { time: 20.0, note: 'E4' }, { time: 20.5, note: 'E4' },
+      { time: 21.0, note: 'E4' },
+      { time: 22.0, note: 'F4' }, { time: 22.5, note: 'E4' },
+      { time: 23.0, note: 'D4' }, { time: 23.5, note: 'D4' },
+      { time: 24.0, note: 'C4' },
     ],
   },
   {
@@ -127,7 +205,8 @@ const SONGS: Song[] = [
     title: 'ロンドン橋',
     composer: 'イギリス伝承曲（PD）',
     notes: [
-      { time: 2.0, note: 'G4' }, { time: 2.5, note: 'A4' },
+      // 1段目（ロンドンばし おちる おちる おちる）
+      { time: 2.0, note: 'G4' }, { time: 2.6, note: 'A4' },
       { time: 3.0, note: 'G4' }, { time: 3.5, note: 'F4' },
       { time: 4.0, note: 'E4' }, { time: 4.5, note: 'F4' },
       { time: 5.0, note: 'G4' },
@@ -135,6 +214,13 @@ const SONGS: Song[] = [
       { time: 7.0, note: 'F4' },
       { time: 8.0, note: 'E4' }, { time: 8.5, note: 'F4' },
       { time: 9.0, note: 'G4' },
+      // 2段目（ロンドンばし おちる マイフェアレディ）
+      { time: 10.0, note: 'G4' }, { time: 10.6, note: 'A4' },
+      { time: 11.0, note: 'G4' }, { time: 11.5, note: 'F4' },
+      { time: 12.0, note: 'E4' }, { time: 12.5, note: 'F4' },
+      { time: 13.0, note: 'G4' },
+      { time: 14.0, note: 'D4' }, { time: 15.0, note: 'G4' },
+      { time: 16.0, note: 'E4' }, { time: 16.5, note: 'C4' },
     ],
   },
   {
@@ -142,43 +228,44 @@ const SONGS: Song[] = [
     title: 'よろこびの歌',
     composer: 'ベートーヴェン（PD）',
     notes: [
-      { time: 2.0, note: 'E4' }, { time: 2.55, note: 'E4' },
-      { time: 3.1, note: 'F4' }, { time: 3.65, note: 'G4' },
-      { time: 4.2, note: 'G4' }, { time: 4.75, note: 'F4' },
-      { time: 5.3, note: 'E4' }, { time: 5.85, note: 'D4' },
-      { time: 6.4, note: 'C4' }, { time: 6.95, note: 'C4' },
-      { time: 7.5, note: 'D4' }, { time: 8.05, note: 'E4' },
-      { time: 8.6, note: 'E4' }, { time: 9.35, note: 'D4' },
-      { time: 9.9, note: 'D4' },
-    ],
-  },
-  {
-    id: 'furusato',
-    title: 'ふるさと',
-    composer: '岡野貞一（PD）',
-    notes: [
-      { time: 2.0, note: 'G4' }, { time: 2.55, note: 'G4' },
-      { time: 3.1, note: 'E4' }, { time: 3.65, note: 'G4' },
-      { time: 4.2, note: 'A4' }, { time: 5.0, note: 'G4' },
-      { time: 5.8, note: 'E4' }, { time: 6.35, note: 'G4' },
-      { time: 6.9, note: 'E4' }, { time: 7.7, note: 'D4' },
-      { time: 8.5, note: 'C4' }, { time: 9.05, note: 'D4' },
-      { time: 9.6, note: 'E4' }, { time: 10.15, note: 'G4' },
-      { time: 10.7, note: 'A4' }, { time: 11.5, note: 'G4' },
-    ],
-  },
-  {
-    id: 'momiji',
-    title: 'もみじ',
-    composer: '岡野貞一（PD）',
-    notes: [
-      { time: 2.0, note: 'E4' }, { time: 2.55, note: 'G4' },
-      { time: 3.1, note: 'A4' }, { time: 3.9, note: 'G4' },
-      { time: 4.5, note: 'E4' }, { time: 5.05, note: 'D4' },
-      { time: 5.6, note: 'E4' }, { time: 6.4, note: 'C4' },
-      { time: 7.2, note: 'D4' }, { time: 7.75, note: 'E4' },
-      { time: 8.3, note: 'G4' }, { time: 8.85, note: 'A4' },
-      { time: 9.4, note: 'G4' }, { time: 10.2, note: 'E4' },
+      // 1段目
+      { time: 2.0, note: 'E4' }, { time: 2.5, note: 'E4' },
+      { time: 3.0, note: 'F4' }, { time: 3.5, note: 'G4' },
+      { time: 4.0, note: 'G4' }, { time: 4.5, note: 'F4' },
+      { time: 5.0, note: 'E4' }, { time: 5.5, note: 'D4' },
+      { time: 6.0, note: 'C4' }, { time: 6.5, note: 'C4' },
+      { time: 7.0, note: 'D4' }, { time: 7.5, note: 'E4' },
+      { time: 8.0, note: 'E4' }, { time: 8.75, note: 'D4' },
+      { time: 9.25, note: 'D4' },
+      // 2段目
+      { time: 10.25, note: 'E4' }, { time: 10.75, note: 'E4' },
+      { time: 11.25, note: 'F4' }, { time: 11.75, note: 'G4' },
+      { time: 12.25, note: 'G4' }, { time: 12.75, note: 'F4' },
+      { time: 13.25, note: 'E4' }, { time: 13.75, note: 'D4' },
+      { time: 14.25, note: 'C4' }, { time: 14.75, note: 'C4' },
+      { time: 15.25, note: 'D4' }, { time: 15.75, note: 'E4' },
+      { time: 16.25, note: 'D4' }, { time: 17.0, note: 'C4' },
+      { time: 17.5, note: 'C4' },
+      // 3段目（中間部）
+      { time: 18.5, note: 'D4' }, { time: 19.0, note: 'D4' },
+      { time: 19.5, note: 'E4' }, { time: 20.0, note: 'C4' },
+      { time: 20.5, note: 'D4' }, { time: 21.0, note: 'E4' },
+      { time: 21.35, note: 'F4' }, { time: 21.7, note: 'E4' },
+      { time: 22.2, note: 'C4' },
+      { time: 22.7, note: 'D4' }, { time: 23.2, note: 'E4' },
+      { time: 23.55, note: 'F4' }, { time: 23.9, note: 'E4' },
+      { time: 24.4, note: 'D4' },
+      { time: 24.9, note: 'C4' }, { time: 25.4, note: 'D4' },
+      { time: 25.9, note: 'G4' },
+      // 4段目（フィナーレ）
+      { time: 26.9, note: 'E4' }, { time: 27.4, note: 'E4' },
+      { time: 27.9, note: 'F4' }, { time: 28.4, note: 'G4' },
+      { time: 28.9, note: 'G4' }, { time: 29.4, note: 'F4' },
+      { time: 29.9, note: 'E4' }, { time: 30.4, note: 'D4' },
+      { time: 30.9, note: 'C4' }, { time: 31.4, note: 'C4' },
+      { time: 31.9, note: 'D4' }, { time: 32.4, note: 'E4' },
+      { time: 32.9, note: 'D4' }, { time: 33.65, note: 'C4' },
+      { time: 34.15, note: 'C4' },
     ],
   },
   {
@@ -186,14 +273,24 @@ const SONGS: Song[] = [
     title: '春が来た',
     composer: '岡野貞一（PD）',
     notes: [
-      { time: 2.0, note: 'C4' }, { time: 2.55, note: 'D4' },
-      { time: 3.1, note: 'E4' }, { time: 3.65, note: 'C4' },
-      { time: 4.2, note: 'E4' }, { time: 4.75, note: 'D4' },
-      { time: 5.3, note: 'C4' },
-      { time: 6.3, note: 'G4' }, { time: 6.85, note: 'A4' },
-      { time: 7.4, note: 'G4' }, { time: 7.95, note: 'E4' },
-      { time: 8.5, note: 'G4' }, { time: 9.05, note: 'A4' },
-      { time: 9.6, note: 'G4' },
+      // 1段目（はるがきた はるがきた どこにきた）
+      { time: 2.0, note: 'C4' }, { time: 2.5, note: 'D4' },
+      { time: 3.0, note: 'E4' }, { time: 3.5, note: 'C4' },
+      { time: 4.0, note: 'E4' }, { time: 4.5, note: 'D4' },
+      { time: 5.0, note: 'C4' },
+      { time: 6.0, note: 'G4' }, { time: 6.5, note: 'A4' },
+      { time: 7.0, note: 'G4' }, { time: 7.5, note: 'E4' },
+      { time: 8.0, note: 'G4' }, { time: 8.5, note: 'A4' },
+      { time: 9.0, note: 'G4' },
+      // 2段目（やまにきた さとにきた のにもきた）
+      { time: 10.0, note: 'E4' }, { time: 10.5, note: 'G4' },
+      { time: 11.0, note: 'A4' }, { time: 11.5, note: 'G4' },
+      { time: 12.0, note: 'E4' }, { time: 12.5, note: 'D4' },
+      { time: 13.0, note: 'C4' },
+      { time: 14.0, note: 'D4' }, { time: 14.5, note: 'E4' },
+      { time: 15.0, note: 'G4' }, { time: 15.5, note: 'E4' },
+      { time: 16.0, note: 'D4' }, { time: 16.5, note: 'D4' },
+      { time: 17.0, note: 'C4' },
     ],
   },
   {
@@ -201,27 +298,36 @@ const SONGS: Song[] = [
     title: 'さくらさくら',
     composer: '日本古謡（PD）',
     notes: [
-      { time: 2.0, note: 'A4' }, { time: 2.8, note: 'A4' },
-      { time: 3.6, note: 'B4' },
-      { time: 4.6, note: 'A4' }, { time: 5.4, note: 'A4' },
-      { time: 6.2, note: 'B4' },
-      { time: 7.2, note: 'A4' }, { time: 7.8, note: 'B4' },
-      { time: 8.4, note: 'A4' }, { time: 9.0, note: 'G4' },
-      { time: 9.6, note: 'E4' }, { time: 10.4, note: 'G4' },
-    ],
-  },
-  {
-    id: 'jingle_bells',
-    title: 'ジングルベル（サビ）',
-    composer: 'ピアポント（PD）',
-    notes: [
-      { time: 2.0, note: 'E4' }, { time: 2.5, note: 'E4' },
-      { time: 3.0, note: 'E4' },
-      { time: 3.8, note: 'E4' }, { time: 4.3, note: 'E4' },
-      { time: 4.8, note: 'E4' },
-      { time: 5.6, note: 'E4' }, { time: 6.1, note: 'G4' },
-      { time: 6.6, note: 'C4' }, { time: 7.1, note: 'D4' },
-      { time: 7.6, note: 'E4' },
+      // 1段目（さくら さくら やよいのそらは）
+      { time: 2.0, note: 'A4' }, { time: 2.75, note: 'A4' },
+      { time: 3.5, note: 'B4' },
+      { time: 4.5, note: 'A4' }, { time: 5.25, note: 'A4' },
+      { time: 6.0, note: 'B4' },
+      { time: 7.0, note: 'A4' }, { time: 7.6, note: 'B4' },
+      { time: 8.2, note: 'C5' }, { time: 8.8, note: 'B4' },
+      { time: 9.4, note: 'A4' }, { time: 10.0, note: 'B4' },
+      { time: 10.4, note: 'A4' }, { time: 11.0, note: 'F4' },
+      // 2段目（みわたすかぎり かすみかくもか）
+      { time: 12.0, note: 'E4' }, { time: 12.75, note: 'C4' },
+      { time: 13.5, note: 'E4' }, { time: 14.25, note: 'F4' },
+      { time: 15.0, note: 'E4' }, { time: 15.75, note: 'E4' },
+      { time: 16.2, note: 'C4' }, { time: 16.8, note: 'B4' },
+      { time: 17.8, note: 'A4' }, { time: 18.4, note: 'B4' },
+      { time: 19.0, note: 'C5' }, { time: 19.6, note: 'B4' },
+      { time: 20.2, note: 'A4' }, { time: 20.8, note: 'B4' },
+      { time: 21.2, note: 'A4' }, { time: 21.8, note: 'F4' },
+      // 3段目（においぞいずる いざや いざや みにゆかん）
+      { time: 22.8, note: 'E4' }, { time: 23.55, note: 'C4' },
+      { time: 24.3, note: 'E4' }, { time: 25.05, note: 'F4' },
+      { time: 25.8, note: 'E4' }, { time: 26.55, note: 'E4' },
+      { time: 27.0, note: 'C4' }, { time: 27.6, note: 'B4' },
+      { time: 28.6, note: 'A4' }, { time: 29.35, note: 'A4' },
+      { time: 30.1, note: 'B4' },
+      { time: 31.1, note: 'A4' }, { time: 31.85, note: 'A4' },
+      { time: 32.6, note: 'B4' },
+      { time: 33.6, note: 'E4' }, { time: 34.35, note: 'F4' },
+      { time: 35.1, note: 'B4' }, { time: 35.6, note: 'A4' },
+      { time: 36.2, note: 'F4' }, { time: 36.9, note: 'E4' },
     ],
   },
   {
@@ -229,14 +335,36 @@ const SONGS: Song[] = [
     title: 'きよしこの夜',
     composer: 'グルーバー（PD）',
     notes: [
-      { time: 2.0, note: 'G4' }, { time: 2.75, note: 'A4' },
-      { time: 3.25, note: 'G4' }, { time: 4.0, note: 'E4' },
-      { time: 5.0, note: 'G4' }, { time: 5.75, note: 'A4' },
-      { time: 6.25, note: 'G4' }, { time: 7.0, note: 'E4' },
-      { time: 8.0, note: 'D4' }, { time: 8.5, note: 'D4' },
-      { time: 9.25, note: 'B4' },
-      { time: 10.25, note: 'C5' }, { time: 10.75, note: 'C5' },
-      { time: 11.5, note: 'G4' },
+      // 1段目（きよし このよる）
+      { time: 2.0, note: 'G4' }, { time: 2.8, note: 'A4' },
+      { time: 3.3, note: 'G4' }, { time: 4.0, note: 'E4' },
+      { time: 5.2, note: 'G4' }, { time: 6.0, note: 'A4' },
+      { time: 6.5, note: 'G4' }, { time: 7.2, note: 'E4' },
+      // 2段目（ほしは ひかり）
+      { time: 8.4, note: 'D4' }, { time: 9.2, note: 'D4' },
+      { time: 9.8, note: 'B4' },
+      { time: 11.0, note: 'C5' }, { time: 11.8, note: 'C5' },
+      { time: 12.4, note: 'G4' },
+      // 3段目（すくいの みこは まぶねのなかに）
+      { time: 13.6, note: 'A4' }, { time: 14.4, note: 'A4' },
+      { time: 15.0, note: 'C5' }, { time: 15.8, note: 'B4' },
+      { time: 16.3, note: 'A4' }, { time: 17.0, note: 'G4' },
+      { time: 17.8, note: 'A4' }, { time: 18.3, note: 'G4' },
+      { time: 19.0, note: 'E4' },
+      // 4段目（ねむり たもう いとやすく）
+      { time: 20.2, note: 'A4' }, { time: 21.0, note: 'A4' },
+      { time: 21.6, note: 'C5' }, { time: 22.4, note: 'B4' },
+      { time: 22.9, note: 'A4' }, { time: 23.6, note: 'G4' },
+      { time: 24.4, note: 'A4' }, { time: 24.9, note: 'G4' },
+      { time: 25.6, note: 'E4' },
+      // 5段目（フィナーレ：ねむり たもう）
+      { time: 26.8, note: 'D4' }, { time: 27.6, note: 'D4' },
+      { time: 28.2, note: 'F4' }, { time: 29.0, note: 'D4' },
+      { time: 29.5, note: 'B4' }, { time: 30.2, note: 'C5' },
+      { time: 31.4, note: 'C5' }, { time: 32.2, note: 'G4' },
+      { time: 32.8, note: 'E4' }, { time: 33.4, note: 'G4' },
+      { time: 34.2, note: 'F4' }, { time: 34.7, note: 'D4' },
+      { time: 35.4, note: 'C4' },
     ],
   },
 ];
@@ -253,7 +381,7 @@ export default function App() {
   const [selectedSong, setSelectedSong] = useState<Song>(SONGS[0]);
   const [playMode, setPlayMode] = useState<PlayMode>('idle');
   const [currentTime, setCurrentTime] = useState<number>(0);
-  const [previewOffsetSec, setPreviewOffsetSec] = useState<number>(0); // 停止中のスワイプ確認用オフセット（秒）
+  const [previewOffsetSec, setPreviewOffsetSec] = useState<number>(0);
   const [activeNotes, setActiveNotes] = useState<ActiveNote[]>([]);
   const [pressedKeys, setPressedKeys] = useState<Record<string, boolean>>({});
   const [score, setScore] = useState<number>(0);
@@ -266,7 +394,6 @@ export default function App() {
   const reqAnimRef = useRef<number | null>(null);
   const demoPlayedIdsRef = useRef<Set<number>>(new Set());
 
-  // 停止中スワイプ用のドラッグ状態
   const isDraggingLaneRef = useRef<boolean>(false);
   const dragStartXRef = useRef<number>(0);
   const dragStartOffsetRef = useRef<number>(0);
@@ -348,7 +475,6 @@ export default function App() {
     }
   };
 
-  // 演奏／お手本自動再生ループ
   useEffect(() => {
     if (!isRunning) return;
 
@@ -359,7 +485,6 @@ export default function App() {
       setCurrentTime(elapsed);
 
       if (playMode === 'demo') {
-        // お手本モード：タイミングが来たら自動で音を鳴らし、鍵盤を押下＆ノーツをヒット処理
         selectedSong.notes.forEach((n, idx) => {
           if (!demoPlayedIdsRef.current.has(idx) && elapsed >= n.time) {
             demoPlayedIdsRef.current.add(idx);
@@ -377,7 +502,6 @@ export default function App() {
           }
         });
       } else {
-        // 通常プレイモード：見逃し判定
         setActiveNotes((prev) =>
           prev.map((note) => {
             if (!note.hit && !note.missed && elapsed - note.time > 0.4) {
@@ -464,7 +588,6 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [handleKeyPress]);
 
-  // 停止中に楽譜レーンをスワイプ／ドラッグして最初から最後まで確認する処理
   const handleLanePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (isRunning) return;
     isDraggingLaneRef.current = true;
@@ -478,7 +601,6 @@ export default function App() {
     const dx = e.clientX - dragStartXRef.current;
     const laneWidth = e.currentTarget.clientWidth || 600;
     const deltaPercent = (dx / laneWidth) * 100;
-    // 左へドラッグ（dx < 0）すると曲の後ろへ進む
     const deltaSec = -deltaPercent / Math.max(scrollSpeed, 8);
     const nextOffset = Math.min(Math.max(dragStartOffsetRef.current + deltaSec, 0), songEndTime);
     setPreviewOffsetSec(nextOffset);
@@ -552,7 +674,7 @@ export default function App() {
       <header className="stage-curtain-header">
         <div className="curtain-drape" />
         <div className="header-content">
-          <h1 className="game-title">ステージ・ピアノリズム</h1>
+          <h1 className="game-title">🎹 ステージ・ピアノリズム</h1>
           <div className="score-board">
             <div className="score-item">
               <span className="score-label">SCORE</span>
@@ -639,7 +761,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* ②・③ 横スクロール楽譜レーン（停止中はスワイプで全体を事前確認可能） */}
+        {/* ②・③ 横スクロール楽譜レーン（停止中はスワイプで最初から最後まで確認可能） */}
         <section className="sheet-lane-wrapper" aria-label="楽譜レーン">
           <div
             className={`sheet-lane ${!isRunning ? 'scrubbable' : ''}`}
@@ -736,7 +858,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* ピアノ鍵盤エリア（白鍵は長く、黒鍵は白鍵の約56%の長さ） */}
+        {/* ピアノ鍵盤エリア */}
         <section className="piano-stage" aria-label="ピアノ鍵盤">
           <div className="piano-keyboard">
             <div className="white-keys">
