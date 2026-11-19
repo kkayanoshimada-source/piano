@@ -4,7 +4,6 @@
   padding: 0;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: manipulation;
 }
 
 body {
@@ -101,7 +100,7 @@ body {
   gap: 14px;
 }
 
-/* ① 楽曲選択パネル ＋ 速度スライダー */
+/* ① 楽曲選択パネル（横一列スクロール対応） */
 .song-selector-panel {
   display: flex;
   justify-content: space-between;
@@ -115,27 +114,33 @@ body {
   box-shadow: 0 2px 6px rgba(59, 47, 47, 0.06);
 }
 
-.song-list {
+.song-list-scroll {
   display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 8px;
   flex: 1;
-  min-width: 240px;
-  max-height: 112px;
-  overflow-y: auto;
-  padding-right: 4px;
+  min-width: 220px;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: #b79c82 #f2ebe1;
+  -webkit-overflow-scrolling: touch;
 }
 
 .song-card {
+  flex: 0 0 auto;
   background: #f2ebe1;
   border: 2px solid transparent;
   border-radius: 8px;
-  padding: 6px 10px;
+  padding: 7px 12px;
   cursor: pointer;
   text-align: left;
   transition: all 0.18s ease;
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
 }
 
 .song-card:hover {
@@ -149,7 +154,7 @@ body {
 }
 
 .song-title {
-  font-size: 0.85rem;
+  font-size: 0.86rem;
   font-weight: 700;
   color: #4a2c31;
 }
@@ -164,7 +169,7 @@ body {
   flex-direction: column;
   align-items: stretch;
   gap: 8px;
-  min-width: 185px;
+  min-width: 210px;
 }
 
 .speed-control {
@@ -195,12 +200,13 @@ body {
 }
 
 .btn-start,
+.btn-demo,
 .btn-stop {
-  width: 100%;
+  flex: 1;
   border: none;
   border-radius: 999px;
-  padding: 9px 18px;
-  font-size: 0.92rem;
+  padding: 9px 14px;
+  font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.15s ease;
@@ -213,11 +219,19 @@ body {
   box-shadow: 0 3px 8px rgba(109, 50, 60, 0.3);
 }
 
-.btn-start:active {
+.btn-demo {
+  background: linear-gradient(135deg, #c79544 0%, #a5752a 100%);
+  color: #fffdf8;
+  box-shadow: 0 3px 8px rgba(165, 117, 42, 0.28);
+}
+
+.btn-start:active,
+.btn-demo:active {
   transform: scale(0.97);
 }
 
 .btn-stop {
+  width: 100%;
   background: #6c635b;
   color: #ffffff;
 }
@@ -234,13 +248,21 @@ body {
 .sheet-lane {
   position: relative;
   width: 100%;
-  height: clamp(145px, 24vh, 200px);
+  height: clamp(145px, 22vh, 190px);
   background: radial-gradient(circle at 16% 50%, #483b3e 0%, #2f2628 100%);
   border-radius: 9px;
   overflow: hidden;
+  touch-action: none;
 }
 
-/* SVGつながりガイド線レイヤー */
+.sheet-lane.scrubbable {
+  cursor: grab;
+}
+
+.sheet-lane.scrubbable:active {
+  cursor: grabbing;
+}
+
 .guide-lines-svg {
   position: absolute;
   inset: 0;
@@ -327,7 +349,7 @@ body {
   position: absolute;
   top: 10px;
   transform: translateX(-50%);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 800;
   padding: 2px 10px;
   border-radius: 12px;
@@ -346,6 +368,11 @@ body {
   background: rgba(45, 78, 62, 0.85);
 }
 
+.judgment-popup.demo {
+  color: #fff2c6;
+  background: rgba(165, 117, 42, 0.9);
+}
+
 .judgment-popup.miss {
   color: #f4a2a2;
   background: rgba(60, 40, 40, 0.85);
@@ -354,7 +381,7 @@ body {
 .judgment-popup.finish {
   color: #fff8e7;
   background: rgba(132, 65, 76, 0.95);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 @keyframes popUpFade {
@@ -368,23 +395,23 @@ body {
   }
 }
 
-.lane-placeholder {
+.lane-scrub-hint {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #dfd3c3;
-  font-size: 0.9rem;
-  padding: 0 20px;
-  text-align: center;
-  padding-left: 22%;
+  bottom: 8px;
+  right: 12px;
+  font-size: 0.72rem;
+  color: rgba(245, 235, 220, 0.72);
+  background: rgba(20, 15, 16, 0.45);
+  padding: 2px 8px;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 6;
 }
 
-/* ピアノ鍵盤ステージ */
+/* ピアノ鍵盤ステージ：白鍵を長く、黒鍵は白鍵の約56%の高さに調整 */
 .piano-stage {
   flex: 1;
-  min-height: 190px;
+  min-height: 235px;
   background: #4e3438;
   border-radius: 14px;
   padding: 12px 10px 14px;
@@ -406,7 +433,7 @@ body {
   position: relative;
   flex: 1;
   width: 100%;
-  min-height: 165px;
+  min-height: 210px;
   display: flex;
 }
 
@@ -428,9 +455,10 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
   gap: 4px;
   box-shadow: 0 4px 0 #bfb09d;
+  touch-action: manipulation;
   transition: transform 0.08s ease, background 0.12s ease, box-shadow 0.12s ease;
 }
 
@@ -441,7 +469,6 @@ body {
   box-shadow: 0 1px 0 #bfb09d;
 }
 
-/* 楽譜に合わせて光る白鍵 */
 .white-key.target-guide {
   background: linear-gradient(180deg, #fff9db 0%, #ffd875 100%);
   border: 2px solid #d99326;
@@ -463,12 +490,13 @@ body {
   border-radius: 4px;
 }
 
+/* 黒鍵：白鍵の半分より少し長い（56%）高さ */
 .black-keys {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 58%;
+  height: 56%;
   pointer-events: none;
 }
 
@@ -488,6 +516,7 @@ body {
   padding-bottom: 8px;
   gap: 2px;
   box-shadow: 0 4px 0 #171213;
+  touch-action: manipulation;
   transition: transform 0.08s ease, box-shadow 0.12s ease;
   z-index: 3;
 }
@@ -499,7 +528,6 @@ body {
   box-shadow: 0 1px 0 #171213;
 }
 
-/* 楽譜に合わせて光る黒鍵 */
 .black-key.target-guide {
   background: linear-gradient(180deg, #b86b35 0%, #7d3f18 100%);
   border: 2px solid #ffd269;
@@ -533,15 +561,8 @@ body {
     align-items: stretch;
   }
 
-  .song-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    max-height: 115px;
-  }
-
-  .song-card {
-    padding: 6px 8px;
+  .song-list-scroll {
+    width: 100%;
   }
 
   .song-composer {
@@ -550,6 +571,14 @@ body {
 
   .control-side {
     width: 100%;
+  }
+
+  .piano-stage {
+    min-height: 210px;
+  }
+
+  .piano-keyboard {
+    min-height: 185px;
   }
 
   .key-bind-hint {

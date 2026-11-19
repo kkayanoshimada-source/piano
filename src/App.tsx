@@ -247,20 +247,32 @@ interface ActiveNote extends SheetNote {
   missed: boolean;
 }
 
+type PlayMode = 'idle' | 'playing' | 'demo';
+
 export default function App() {
   const [selectedSong, setSelectedSong] = useState<Song>(SONGS[0]);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [playMode, setPlayMode] = useState<PlayMode>('idle');
   const [currentTime, setCurrentTime] = useState<number>(0);
+  const [previewOffsetSec, setPreviewOffsetSec] = useState<number>(0); // 停止中のスワイプ確認用オフセット（秒）
   const [activeNotes, setActiveNotes] = useState<ActiveNote[]>([]);
   const [pressedKeys, setPressedKeys] = useState<Record<string, boolean>>({});
   const [score, setScore] = useState<number>(0);
   const [combo, setCombo] = useState<number>(0);
-  const [scrollSpeed, setScrollSpeed] = useState<number>(22); // スライダーで調整可能な速度（10〜45）
+  const [scrollSpeed, setScrollSpeed] = useState<number>(22);
   const [judgment, setJudgment] = useState<{ text: string; type: string; id: number } | null>(null);
 
   const audioCtxRef = useRef<AudioContext | null>(null);
   const startTimeRef = useRef<number>(0);
   const reqAnimRef = useRef<number | null>(null);
+  const demoPlayedIdsRef = useRef<Set<number>>(new Set());
+
+  // 停止中スワイプ用のドラッグ状態
+  const isDraggingLaneRef = useRef<boolean>(false);
+  const dragStartXRef = useRef<number>(0);
+  const dragStartOffsetRef = useRef<number>(0);
+
+  const isRunning = playMode === 'playing' || playMode === 'demo';
+  const songEndTime = Math.max(...selectedSong.notes.map((n) => n.time)) + 2.5;
 
   const playTone = useCallback((freq: number) => {
     if (!audioCtxRef.current) {
@@ -302,12 +314,21 @@ export default function App() {
     osc2.stop(now + 1.2);
   }, []);
 
-  const startGame = (song: Song = selectedSong) => {
+  const triggerKeyVisual = useCallback((noteName: string) => {
+    setPressedKeys((prev) => ({ ...prev, [noteName]: true }));
+    setTimeout(() => {
+      setPressedKeys((prev) => ({ ...prev, [noteName]: false }));
+    }, 190);
+  }, []);
+
+  const beginSession = (mode: 'playing' | 'demo', song: Song = selectedSong) => {
     setSelectedSong(song);
     setScore(0);
     setCombo(0);
     setJudgment(null);
     setCurrentTime(0);
+    setPreviewOffsetSec(0);
+    demoPlayedIdsRef.current = new Set();
     setActiveNotes(
       song.notes.map((n, index) => ({
         ...n,
@@ -316,19 +337,20 @@ export default function App() {
         missed: false,
       }))
     );
-    setIsPlaying(true);
+    setPlayMode(mode);
     startTimeRef.current = performance.now();
   };
 
-  const stopGame = () => {
-    setIsPlaying(false);
+  const stopSession = () => {
+    setPlayMode('idle');
     if (reqAnimRef.current) {
       cancelAnimationFrame(reqAnimRef.current);
     }
   };
 
+  // 演奏／お手本自動再生ループ
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isRunning) return;
 
     const maxTime = Math.max(...selectedSong.notes.map((n) => n.time)) + 2.8;
 
@@ -336,20 +358,45 @@ export default function App() {
       const elapsed = (now - startTimeRef.current) / 1000;
       setCurrentTime(elapsed);
 
-      setActiveNotes((prev) =>
-        prev.map((note) => {
-          if (!note.hit && !note.missed && elapsed - note.time > 0.4) {
-            setCombo(0);
-            setJudgment({ text: 'MISS', type: 'miss', id: Date.now() + Math.random() });
-            return { ...note, missed: true };
+      if (playMode === 'demo') {
+        // お手本モード：タイミングが来たら自動で音を鳴らし、鍵盤を押下＆ノーツをヒット処理
+        selectedSong.notes.forEach((n, idx) => {
+          if (!demoPlayedIdsRef.current.has(idx) && elapsed >= n.time) {
+            demoPlayedIdsRef.current.add(idx);
+            const keyCfg = KEYS.find((k) => k.note === n.note);
+            if (keyCfg) {
+              playTone(keyCfg.freq);
+              triggerKeyVisual(keyCfg.note);
+            }
+            setScore((s) => s + 100);
+            setCombo((c) => c + 1);
+            setJudgment({ text: '♪ お手本', type: 'demo', id: Date.now() + idx });
+            setActiveNotes((prev) =>
+              prev.map((item) => (item.id === idx ? { ...item, hit: true } : item))
+            );
           }
-          return note;
-        })
-      );
+        });
+      } else {
+        // 通常プレイモード：見逃し判定
+        setActiveNotes((prev) =>
+          prev.map((note) => {
+            if (!note.hit && !note.missed && elapsed - note.time > 0.4) {
+              setCombo(0);
+              setJudgment({ text: 'MISS', type: 'miss', id: Date.now() + Math.random() });
+              return { ...note, missed: true };
+            }
+            return note;
+          })
+        );
+      }
 
       if (elapsed >= maxTime) {
-        setIsPlaying(false);
-        setJudgment({ text: '演奏終了！', type: 'finish', id: Date.now() });
+        setPlayMode('idle');
+        setJudgment({
+          text: playMode === 'demo' ? 'お手本終了！' : '演奏終了！',
+          type: 'finish',
+          id: Date.now(),
+        });
         return;
       }
 
@@ -360,17 +407,14 @@ export default function App() {
     return () => {
       if (reqAnimRef.current) cancelAnimationFrame(reqAnimRef.current);
     };
-  }, [isPlaying, selectedSong]);
+  }, [isRunning, playMode, selectedSong, playTone, triggerKeyVisual]);
 
   const handleKeyPress = useCallback(
     (keyConfig: KeyConfig) => {
       playTone(keyConfig.freq);
-      setPressedKeys((prev) => ({ ...prev, [keyConfig.note]: true }));
-      setTimeout(() => {
-        setPressedKeys((prev) => ({ ...prev, [keyConfig.note]: false }));
-      }, 190);
+      triggerKeyVisual(keyConfig.note);
 
-      if (!isPlaying) return;
+      if (playMode !== 'playing') return;
 
       const nowElapsed = (performance.now() - startTimeRef.current) / 1000;
       setActiveNotes((prev) => {
@@ -405,7 +449,7 @@ export default function App() {
         return prev;
       });
     },
-    [isPlaying, playTone]
+    [playMode, playTone, triggerKeyVisual]
   );
 
   useEffect(() => {
@@ -420,17 +464,46 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [handleKeyPress]);
 
+  // 停止中に楽譜レーンをスワイプ／ドラッグして最初から最後まで確認する処理
+  const handleLanePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (isRunning) return;
+    isDraggingLaneRef.current = true;
+    dragStartXRef.current = e.clientX;
+    dragStartOffsetRef.current = previewOffsetSec;
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const handleLanePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingLaneRef.current || isRunning) return;
+    const dx = e.clientX - dragStartXRef.current;
+    const laneWidth = e.currentTarget.clientWidth || 600;
+    const deltaPercent = (dx / laneWidth) * 100;
+    // 左へドラッグ（dx < 0）すると曲の後ろへ進む
+    const deltaSec = -deltaPercent / Math.max(scrollSpeed, 8);
+    const nextOffset = Math.min(Math.max(dragStartOffsetRef.current + deltaSec, 0), songEndTime);
+    setPreviewOffsetSec(nextOffset);
+  };
+
+  const handleLanePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingLaneRef.current) return;
+    isDraggingLaneRef.current = false;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+  };
+
+  const effectiveTime = isRunning ? currentTime : previewOffsetSec;
+
   const getLaneTopPercent = (noteName: string) => {
     const idx = KEYS.findIndex((k) => k.note === noteName);
     const ratio = idx / (KEYS.length - 1);
     return 82 - ratio * 64;
   };
 
-  // 各音階に対応する下のピアノ鍵盤の横位置（%）を取得（つながりガイド線用）
   const getKeyboardCenterPercent = (noteName: string) => {
     const keyInfo = KEYS.find((k) => k.note === noteName);
     if (!keyInfo) return 50;
-    const whiteCount = 8; // 白鍵8個（ド〜高いド）
+    const whiteCount = 8;
     if (keyInfo.isBlack) {
       return ((keyInfo.whiteIndex + 1) / whiteCount) * 100;
     }
@@ -439,31 +512,37 @@ export default function App() {
 
   const HIT_ZONE_LEFT_PERCENT = 16;
 
-  // 楽譜に合わせて光らせる対象鍵盤の判定
   const isNoteGlowingKey = (noteName: string) => {
-    if (!isPlaying) return false;
+    if (!isRunning) return false;
     return activeNotes.some((n) => {
       if (n.hit || n.missed || n.note !== noteName) return false;
-      const diff = n.time - currentTime;
+      const diff = n.time - effectiveTime;
       return diff >= -0.25 && diff <= 1.1;
     });
   };
 
-  // 画面内に表示中の音符座標リスト（メロディのつながり折れ線ガイド用）
-  const visibleNotesCoords = activeNotes
-    .filter((n) => !n.hit)
+  const displayNotesSource =
+    isRunning
+      ? activeNotes.filter((n) => !n.hit)
+      : selectedSong.notes.map((n, index) => ({
+          ...n,
+          id: index,
+          hit: false,
+          missed: false,
+        }));
+
+  const visibleNotesCoords = displayNotesSource
     .map((n) => {
-      const timeDiff = n.time - currentTime;
+      const timeDiff = n.time - effectiveTime;
       const x = HIT_ZONE_LEFT_PERCENT + timeDiff * scrollSpeed;
       const y = getLaneTopPercent(n.note);
       return { ...n, x, y, timeDiff };
     })
     .filter((n) => n.x >= -15 && n.x <= 115);
 
-  // 次に叩く直近のターゲット音符（鍵盤へのつながりビーム線用）
-  const nextTargetNote = visibleNotesCoords.find(
-    (n) => !n.missed && n.timeDiff >= -0.25 && n.timeDiff <= 1.1
-  );
+  const nextTargetNote = isRunning
+    ? visibleNotesCoords.find((n) => !n.missed && n.timeDiff >= -0.25 && n.timeDiff <= 1.1)
+    : undefined;
 
   const whiteKeys = KEYS.filter((k) => !k.isBlack);
   const blackKeys = KEYS.filter((k) => k.isBlack);
@@ -473,7 +552,7 @@ export default function App() {
       <header className="stage-curtain-header">
         <div className="curtain-drape" />
         <div className="header-content">
-          <h1 className="game-title"> ステージ・ピアノリズム</h1>
+          <h1 className="game-title">🎹 ステージ・ピアノリズム</h1>
           <div className="score-board">
             <div className="score-item">
               <span className="score-label">SCORE</span>
@@ -488,17 +567,18 @@ export default function App() {
       </header>
 
       <main className="game-main">
-        {/* ① 著作権フリー楽曲一覧 ＋ スクロール速度スライダー */}
-        <section className="song-selector-panel" aria-label="楽曲選択と速度設定">
-          <div className="song-list">
+        {/* ① 楽曲選択（横一列スクロール）＋ 速度スライダー ＋ スタート／お手本ボタン */}
+        <section className="song-selector-panel" aria-label="楽曲選択と操作">
+          <div className="song-list-scroll" role="tablist" aria-label="楽曲一覧">
             {SONGS.map((song) => (
               <button
                 key={song.id}
                 type="button"
                 className={`song-card ${selectedSong.id === song.id ? 'active' : ''}`}
                 onClick={() => {
-                  stopGame();
+                  stopSession();
                   setSelectedSong(song);
+                  setPreviewOffsetSec(0);
                   setActiveNotes(
                     song.notes.map((n, index) => ({
                       ...n,
@@ -516,7 +596,6 @@ export default function App() {
           </div>
 
           <div className="control-side">
-            {/* スクロール速度スライダー */}
             <div className="speed-control">
               <label htmlFor="speed-slider" className="speed-label">
                 スクロール速度: <strong>{scrollSpeed}</strong>
@@ -534,22 +613,41 @@ export default function App() {
             </div>
 
             <div className="control-buttons">
-              {!isPlaying ? (
-                <button type="button" className="btn-start" onClick={() => startGame(selectedSong)}>
-                  ▶ 演奏スタート
-                </button>
+              {!isRunning ? (
+                <>
+                  <button
+                    type="button"
+                    className="btn-start"
+                    onClick={() => beginSession('playing', selectedSong)}
+                  >
+                    ▶ 演奏スタート
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-demo"
+                    onClick={() => beginSession('demo', selectedSong)}
+                  >
+                    ♪ お手本
+                  </button>
+                </>
               ) : (
-                <button type="button" className="btn-stop" onClick={stopGame}>
-                  ■ ストップ
+                <button type="button" className="btn-stop" onClick={stopSession}>
+                  ■ {playMode === 'demo' ? 'お手本ストップ' : 'ストップ'}
                 </button>
               )}
             </div>
           </div>
         </section>
 
-        {/* ②・③ 横スクロール楽譜レーン ＋ 音符＆ドレミのつながりガイド線 */}
+        {/* ②・③ 横スクロール楽譜レーン（停止中はスワイプで全体を事前確認可能） */}
         <section className="sheet-lane-wrapper" aria-label="楽譜レーン">
-          <div className="sheet-lane">
+          <div
+            className={`sheet-lane ${!isRunning ? 'scrubbable' : ''}`}
+            onPointerDown={handleLanePointerDown}
+            onPointerMove={handleLanePointerMove}
+            onPointerUp={handleLanePointerUp}
+            onPointerCancel={handleLanePointerUp}
+          >
             <div className="staff-lines">
               <div className="staff-line" />
               <div className="staff-line" />
@@ -558,14 +656,12 @@ export default function App() {
               <div className="staff-line" />
             </div>
 
-            {/* SVGつながりガイド線レイヤー */}
             <svg
               className="guide-lines-svg"
               viewBox="0 0 100 100"
               preserveAspectRatio="none"
               aria-hidden="true"
             >
-              {/* 音符同士をつなぐメロディガイド線 */}
               {visibleNotesCoords.length > 1 && (
                 <polyline
                   fill="none"
@@ -576,8 +672,7 @@ export default function App() {
                 />
               )}
 
-              {/* 次に叩く音符から下の対応鍵盤へつながるガイド線 */}
-              {isPlaying && nextTargetNote && (
+              {isRunning && nextTargetNote && (
                 <g>
                   <line
                     x1={nextTargetNote.x}
@@ -614,7 +709,8 @@ export default function App() {
 
             {visibleNotesCoords.map((note) => {
               const keyInfo = KEYS.find((k) => k.note === note.note);
-              const isNext = !note.missed && note.timeDiff >= -0.25 && note.timeDiff <= 1.1;
+              const isNext =
+                isRunning && !note.missed && note.timeDiff >= -0.25 && note.timeDiff <= 1.1;
 
               return (
                 <div
@@ -632,15 +728,15 @@ export default function App() {
               );
             })}
 
-            {!isPlaying && activeNotes.length === 0 && (
-              <div className="lane-placeholder">
-                曲を選んで「演奏スタート」を押すか、下の鍵盤を自由に弾いてみよう！
+            {!isRunning && (
+              <div className="lane-scrub-hint">
+                ← スワイプして楽譜を確認（{previewOffsetSec.toFixed(1)}s / {songEndTime.toFixed(1)}s） →
               </div>
             )}
           </div>
         </section>
 
-        {/* ピアノ鍵盤エリア */}
+        {/* ピアノ鍵盤エリア（白鍵は長く、黒鍵は白鍵の約56%の長さ） */}
         <section className="piano-stage" aria-label="ピアノ鍵盤">
           <div className="piano-keyboard">
             <div className="white-keys">
