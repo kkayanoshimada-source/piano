@@ -1,0 +1,562 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+body {
+  font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+  background-color: #f4efe8;
+  color: #3b2f2f;
+  overflow-x: hidden;
+}
+
+.stage-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #ece3d5 0%, #f7f3ed 45%, #e8dfd1 100%);
+}
+
+/* ステージ上部の垂れ幕イメージ */
+.stage-curtain-header {
+  position: relative;
+  background: linear-gradient(180deg, #6d323c 0%, #84414c 85%, #5a262f 100%);
+  color: #fdf8f2;
+  padding: 14px 20px 22px;
+  box-shadow: 0 4px 12px rgba(68, 32, 38, 0.25);
+  border-bottom: 4px solid #c9a66b;
+}
+
+.curtain-drape {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 24px,
+    rgba(0, 0, 0, 0.08) 24px,
+    rgba(0, 0, 0, 0.08) 48px
+  );
+  pointer-events: none;
+}
+
+.header-content {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.game-title {
+  font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.score-board {
+  display: flex;
+  gap: 14px;
+}
+
+.score-item {
+  background: rgba(45, 20, 24, 0.45);
+  border: 1px solid rgba(201, 166, 107, 0.6);
+  border-radius: 8px;
+  padding: 4px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 76px;
+}
+
+.score-label {
+  font-size: 0.65rem;
+  color: #e6cfa7;
+  letter-spacing: 0.08em;
+}
+
+.score-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.game-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 14px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ① 楽曲選択パネル ＋ 速度スライダー */
+.song-selector-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: #fbf8f3;
+  border: 1px solid #dfd3c3;
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 6px rgba(59, 47, 47, 0.06);
+}
+
+.song-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  flex: 1;
+  min-width: 240px;
+  max-height: 112px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.song-card {
+  background: #f2ebe1;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.song-card:hover {
+  background: #e9dfd1;
+}
+
+.song-card.active {
+  background: #fffdf9;
+  border-color: #84414c;
+  box-shadow: 0 2px 6px rgba(132, 65, 76, 0.18);
+}
+
+.song-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #4a2c31;
+}
+
+.song-composer {
+  font-size: 0.68rem;
+  color: #7c6f64;
+}
+
+.control-side {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  min-width: 185px;
+}
+
+.speed-control {
+  background: #f2ebe1;
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.speed-label {
+  font-size: 0.76rem;
+  color: #5c4944;
+  display: flex;
+  justify-content: space-between;
+}
+
+.speed-slider {
+  width: 100%;
+  accent-color: #84414c;
+  cursor: pointer;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-start,
+.btn-stop {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-start {
+  background: linear-gradient(135deg, #84414c 0%, #6d323c 100%);
+  color: #fffaf4;
+  box-shadow: 0 3px 8px rgba(109, 50, 60, 0.3);
+}
+
+.btn-start:active {
+  transform: scale(0.97);
+}
+
+.btn-stop {
+  background: #6c635b;
+  color: #ffffff;
+}
+
+/* ②・③ 横スクロール楽譜レーン */
+.sheet-lane-wrapper {
+  background: #352c2e;
+  border: 4px solid #7c4d46;
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.35), 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sheet-lane {
+  position: relative;
+  width: 100%;
+  height: clamp(145px, 24vh, 200px);
+  background: radial-gradient(circle at 16% 50%, #483b3e 0%, #2f2628 100%);
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+/* SVGつながりガイド線レイヤー */
+.guide-lines-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.staff-lines {
+  position: absolute;
+  inset: 18% 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.staff-line {
+  width: 100%;
+  height: 1px;
+  background: rgba(245, 235, 220, 0.16);
+}
+
+.hit-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: rgba(230, 190, 120, 0.45);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.hit-ring {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 3px dashed rgba(243, 210, 153, 0.75);
+  background: rgba(243, 210, 153, 0.08);
+}
+
+.scroll-note {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: clamp(36px, 5vw, 44px);
+  height: clamp(36px, 5vw, 44px);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e88d72 0%, #c95b42 100%);
+  border: 3px solid #fff6eb;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: transform 0.12s ease;
+}
+
+.scroll-note.sharp-note {
+  background: linear-gradient(135deg, #6fa3b8 0%, #47788c 100%);
+}
+
+.scroll-note.highlight-note {
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 0 0 16px rgba(255, 224, 130, 0.95);
+}
+
+.scroll-note.missed {
+  opacity: 0.35;
+  filter: grayscale(80%);
+}
+
+.note-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.judgment-popup {
+  position: absolute;
+  top: 10px;
+  transform: translateX(-50%);
+  font-size: 0.95rem;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 12px;
+  z-index: 10;
+  animation: popUpFade 0.55s ease-out forwards;
+  white-space: nowrap;
+}
+
+.judgment-popup.perfect {
+  color: #ffe28a;
+  background: rgba(132, 65, 76, 0.85);
+}
+
+.judgment-popup.good {
+  color: #b7e4c7;
+  background: rgba(45, 78, 62, 0.85);
+}
+
+.judgment-popup.miss {
+  color: #f4a2a2;
+  background: rgba(60, 40, 40, 0.85);
+}
+
+.judgment-popup.finish {
+  color: #fff8e7;
+  background: rgba(132, 65, 76, 0.95);
+  font-size: 1.1rem;
+}
+
+@keyframes popUpFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 4px) scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -8px) scale(1.05);
+  }
+}
+
+.lane-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dfd3c3;
+  font-size: 0.9rem;
+  padding: 0 20px;
+  text-align: center;
+  padding-left: 22%;
+}
+
+/* ピアノ鍵盤ステージ */
+.piano-stage {
+  flex: 1;
+  min-height: 190px;
+  background: #4e3438;
+  border-radius: 14px;
+  padding: 12px 10px 14px;
+  box-shadow: 0 6px 16px rgba(59, 47, 47, 0.22);
+  display: flex;
+  flex-direction: column;
+}
+
+.piano-stage::before {
+  content: '';
+  display: block;
+  height: 4px;
+  background: #9e3b47;
+  border-radius: 2px;
+  margin-bottom: 4px;
+}
+
+.piano-keyboard {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 165px;
+  display: flex;
+}
+
+.white-keys {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 3px;
+}
+
+.white-key {
+  flex: 1;
+  height: 100%;
+  background: linear-gradient(180deg, #fffdf9 0%, #f5efe6 92%, #e2d8c9 100%);
+  border: 1px solid #cbbba8;
+  border-radius: 0 0 8px 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 10px;
+  gap: 4px;
+  box-shadow: 0 4px 0 #bfb09d;
+  transition: transform 0.08s ease, background 0.12s ease, box-shadow 0.12s ease;
+}
+
+.white-key:active,
+.white-key.pressed {
+  transform: translateY(3px);
+  background: linear-gradient(180deg, #f3e5d8 0%, #e6d2be 100%);
+  box-shadow: 0 1px 0 #bfb09d;
+}
+
+/* 楽譜に合わせて光る白鍵 */
+.white-key.target-guide {
+  background: linear-gradient(180deg, #fff9db 0%, #ffd875 100%);
+  border: 2px solid #d99326;
+  box-shadow: 0 0 16px rgba(255, 204, 77, 0.9), 0 4px 0 #c79a42;
+  transform: translateY(-2px);
+}
+
+.white-key .key-note-name {
+  font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+  font-weight: 700;
+  color: #4e3d38;
+}
+
+.white-key .key-bind-hint {
+  font-size: 0.68rem;
+  color: #9a8c82;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.black-keys {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 58%;
+  pointer-events: none;
+}
+
+.black-key {
+  position: absolute;
+  width: 7.5%;
+  height: 100%;
+  pointer-events: auto;
+  background: linear-gradient(180deg, #473c3e 0%, #2b2325 88%, #1d1718 100%);
+  border: 1px solid #1a1415;
+  border-radius: 0 0 6px 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 8px;
+  gap: 2px;
+  box-shadow: 0 4px 0 #171213;
+  transition: transform 0.08s ease, box-shadow 0.12s ease;
+  z-index: 3;
+}
+
+.black-key:active,
+.black-key.pressed {
+  transform: translateY(3px);
+  background: linear-gradient(180deg, #5e4f52 0%, #3d3234 100%);
+  box-shadow: 0 1px 0 #171213;
+}
+
+/* 楽譜に合わせて光る黒鍵 */
+.black-key.target-guide {
+  background: linear-gradient(180deg, #b86b35 0%, #7d3f18 100%);
+  border: 2px solid #ffd269;
+  box-shadow: 0 0 16px rgba(255, 200, 70, 0.95), 0 4px 0 #4d250d;
+  transform: translateY(-2px);
+}
+
+.black-key .key-note-name {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #f3eae0;
+}
+
+.black-key .key-bind-hint {
+  font-size: 0.6rem;
+  color: #bbaea4;
+}
+
+@media (max-width: 640px) {
+  .stage-curtain-header {
+    padding: 10px 14px 14px;
+  }
+
+  .game-main {
+    padding: 10px 10px 16px;
+    gap: 10px;
+  }
+
+  .song-selector-panel {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .song-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    max-height: 115px;
+  }
+
+  .song-card {
+    padding: 6px 8px;
+  }
+
+  .song-composer {
+    display: none;
+  }
+
+  .control-side {
+    width: 100%;
+  }
+
+  .key-bind-hint {
+    display: none;
+  }
+
+  .black-key {
+    width: 8.2%;
+  }
+}
