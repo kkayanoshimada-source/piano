@@ -552,7 +552,7 @@ export default function App() {
       <header className="stage-curtain-header">
         <div className="curtain-drape" />
         <div className="header-content">
-          <h1 className="game-title">🎹 ステージ・ピアノリズム</h1>
+          <h1 className="game-title">ステージ・ピアノリズム</h1>
           <div className="score-board">
             <div className="score-item">
               <span className="score-label">SCORE</span>

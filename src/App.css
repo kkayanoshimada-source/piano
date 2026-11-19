@@ -408,13 +408,11 @@ body {
   z-index: 6;
 }
 
-/* ピアノ鍵盤ステージ：白鍵を長く、黒鍵は白鍵の約56%の高さに調整 */
+/* ピアノ鍵盤ステージ：白鍵は120px、黒鍵はそれより少し長い142px */
 .piano-stage {
-  flex: 1;
-  min-height: 235px;
   background: #4e3438;
   border-radius: 14px;
-  padding: 12px 10px 14px;
+  padding: 12px 10px 16px;
   box-shadow: 0 6px 16px rgba(59, 47, 47, 0.22);
   display: flex;
   flex-direction: column;
@@ -431,22 +429,23 @@ body {
 
 .piano-keyboard {
   position: relative;
-  flex: 1;
   width: 100%;
-  min-height: 210px;
+  height: 146px;
   display: flex;
+  align-items: flex-start;
 }
 
 .white-keys {
   display: flex;
+  align-items: flex-start;
   width: 100%;
-  height: 100%;
+  height: 120px;
   gap: 3px;
 }
 
 .white-key {
   flex: 1;
-  height: 100%;
+  height: 120px;
   background: linear-gradient(180deg, #fffdf9 0%, #f5efe6 92%, #e2d8c9 100%);
   border: 1px solid #cbbba8;
   border-radius: 0 0 8px 8px;
@@ -455,7 +454,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding-bottom: 12px;
+  padding-bottom: 10px;
   gap: 4px;
   box-shadow: 0 4px 0 #bfb09d;
   touch-action: manipulation;
@@ -490,20 +489,20 @@ body {
   border-radius: 4px;
 }
 
-/* 黒鍵：白鍵の半分より少し長い（56%）高さ */
+/* 黒鍵：白鍵（120px）より短い 60px */
 .black-keys {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 56%;
+  height: 60px;
   pointer-events: none;
 }
 
 .black-key {
   position: absolute;
   width: 7.5%;
-  height: 100%;
+  height: 60px;
   pointer-events: auto;
   background: linear-gradient(180deg, #473c3e 0%, #2b2325 88%, #1d1718 100%);
   border: 1px solid #1a1415;
@@ -573,12 +572,18 @@ body {
     width: 100%;
   }
 
-  .piano-stage {
-    min-height: 210px;
+  .piano-keyboard {
+    height: 128px;
   }
 
-  .piano-keyboard {
-    min-height: 185px;
+  .white-keys,
+  .white-key {
+    height: 105px;
+  }
+
+  .black-keys,
+  .black-key {
+    height: 60px;
   }
 
   .key-bind-hint {
