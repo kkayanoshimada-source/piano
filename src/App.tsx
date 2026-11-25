@@ -38,7 +38,7 @@ interface Song {
   notes: SheetNote[];
 }
 
-// 元の鍵盤範囲（C4〜C5）で最初から最後まで演奏できるパブリックドメイン楽曲 全10曲
+// 著作権切れ（PD）かつ現在の13鍵盤（C4〜C5）で最後まで演奏できる全11曲
 const SONGS: Song[] = [
   {
     id: 'twinkle',
@@ -159,120 +159,171 @@ const SONGS: Song[] = [
     ],
   },
   {
-    id: 'kogitsune',
-    title: 'こぎつね',
-    composer: 'ドイツ民謡（PD）',
+    id: 'alps',
+    title: 'アルプス一万尺',
+    composer: 'アメリカ民謡（PD）',
     notes: [
-      // こぎつね つきよに あるいてきたよ
-      { time: 2.0, note: 'C4' }, { time: 2.5, note: 'E4' },
-      { time: 3.0, note: 'G4' }, { time: 3.5, note: 'E4' },
-      { time: 4.0, note: 'F4' }, { time: 4.5, note: 'D4' }, { time: 5.0, note: 'B4' },
-      // ちょっとだして ちょっとかくして
-      { time: 6.2, note: 'C4' }, { time: 6.7, note: 'E4' },
-      { time: 7.2, note: 'G4' }, { time: 7.7, note: 'E4' },
-      { time: 8.2, note: 'D4' }, { time: 8.7, note: 'B4' }, { time: 9.2, note: 'C4' },
-      // ポンポン ポンポコ ポン
-      { time: 10.4, note: 'G4' }, { time: 11.0, note: 'G4' },
-      { time: 11.6, note: 'A4' }, { time: 12.0, note: 'G4' }, { time: 12.4, note: 'E4' },
-      { time: 13.0, note: 'G4' },
-      // ポンポン ポンポコ ポン
-      { time: 14.2, note: 'G4' }, { time: 14.8, note: 'G4' },
-      { time: 15.4, note: 'A4' }, { time: 15.8, note: 'G4' }, { time: 16.2, note: 'E4' },
-      { time: 16.8, note: 'C4' },
+      // 1〜4小節目
+      { time: 2.0, note: 'C4' }, { time: 2.4, note: 'C4' }, { time: 2.8, note: 'D4' }, { time: 3.2, note: 'E4' },
+      { time: 3.8, note: 'C4' }, { time: 4.2, note: 'E4' }, { time: 4.6, note: 'D4' }, { time: 5.0, note: 'G4' },
+      { time: 5.6, note: 'C4' }, { time: 6.0, note: 'C4' }, { time: 6.4, note: 'D4' }, { time: 6.8, note: 'E4' },
+      { time: 7.4, note: 'C4' }, { time: 8.0, note: 'B4' }, { time: 8.6, note: 'G4' },
+      // 5〜8小節目
+      { time: 9.4, note: 'C4' }, { time: 9.8, note: 'C4' }, { time: 10.2, note: 'D4' }, { time: 10.6, note: 'E4' },
+      { time: 11.2, note: 'F4' }, { time: 11.6, note: 'E4' }, { time: 12.0, note: 'D4' }, { time: 12.4, note: 'C4' },
+      { time: 13.0, note: 'B4' }, { time: 13.4, note: 'G4' }, { time: 13.8, note: 'A4' }, { time: 14.2, note: 'B4' },
+      { time: 14.8, note: 'C5' }, { time: 15.6, note: 'C5' },
+      // 9〜12小節目
+      { time: 16.6, note: 'A4' }, { time: 17.2, note: 'B4' }, { time: 17.6, note: 'A4' }, { time: 18.0, note: 'G4' },
+      { time: 18.6, note: 'A4' }, { time: 19.0, note: 'B4' }, { time: 19.4, note: 'C5' }, { time: 19.8, note: 'A4' },
+      { time: 20.4, note: 'G4' }, { time: 21.0, note: 'A4' }, { time: 21.4, note: 'G4' }, { time: 21.8, note: 'F4' },
+      { time: 22.4, note: 'E4' }, { time: 23.2, note: 'G4' },
+      // 13〜16小節目
+      { time: 24.2, note: 'A4' }, { time: 24.8, note: 'B4' }, { time: 25.2, note: 'A4' }, { time: 25.6, note: 'G4' },
+      { time: 26.2, note: 'A4' }, { time: 26.6, note: 'B4' }, { time: 27.0, note: 'C5' }, { time: 27.4, note: 'A4' },
+      { time: 28.0, note: 'G4' }, { time: 28.4, note: 'C5' }, { time: 28.8, note: 'B4' }, { time: 29.2, note: 'C5' },
+      { time: 29.8, note: 'C5' },
     ],
   },
   {
-    id: 'yurikago',
-    title: 'ゆりかごのうた',
-    composer: '草川信（PD）',
+    id: 'ookina_kuri',
+    title: '大きな栗の木の下で',
+    composer: '伝統曲（PD）',
     notes: [
-      // ゆりかごの うたを
-      { time: 2.0, note: 'E4' }, { time: 2.6, note: 'E4' },
-      { time: 3.2, note: 'G4' }, { time: 3.8, note: 'E4' },
-      { time: 4.4, note: 'D4' },
-      // かなりやが うたうよ
-      { time: 5.6, note: 'D4' }, { time: 6.2, note: 'E4' },
-      { time: 6.8, note: 'D4' }, { time: 7.4, note: 'C4' },
-      { time: 8.0, note: 'A4' },
-      // ゆりかごの うたを
-      { time: 9.2, note: 'E4' }, { time: 9.8, note: 'E4' },
-      { time: 10.4, note: 'G4' }, { time: 11.0, note: 'E4' },
-      { time: 11.6, note: 'D4' },
-      // かなりやが うたうよ
-      { time: 12.8, note: 'D4' }, { time: 13.4, note: 'E4' },
-      { time: 14.0, note: 'D4' }, { time: 14.6, note: 'C4' },
-      { time: 15.2, note: 'C4' },
+      // 1〜4小節目：ド・ドレ / ミ・ミソ / ミ・ミレ・レ / ド
+      { time: 2.0, note: 'C4' }, { time: 2.6, note: 'C4' }, { time: 2.9, note: 'D4' },
+      { time: 3.4, note: 'E4' }, { time: 3.7, note: 'E4' }, { time: 4.1, note: 'G4' },
+      { time: 4.8, note: 'E4' }, { time: 5.1, note: 'E4' }, { time: 5.5, note: 'D4' }, { time: 5.8, note: 'D4' },
+      { time: 6.4, note: 'C4' },
+      // 5〜8小節目：ミ・ミファ / ソ・ド↑ / ラ・ド↑ / ソ
+      { time: 7.5, note: 'E4' }, { time: 8.1, note: 'E4' }, { time: 8.4, note: 'F4' },
+      { time: 9.0, note: 'G4' }, { time: 9.6, note: 'C5' },
+      { time: 10.3, note: 'A4' }, { time: 10.9, note: 'C5' },
+      { time: 11.6, note: 'G4' },
+      // 9〜12小節目：ド↑・ド↑ / シ・ソ / ラ・ラ・ラ・ラ / ソ
+      { time: 12.7, note: 'C5' }, { time: 13.3, note: 'C5' },
+      { time: 14.0, note: 'B4' }, { time: 14.6, note: 'G4' },
+      { time: 15.3, note: 'A4' }, { time: 15.6, note: 'A4' }, { time: 15.9, note: 'A4' }, { time: 16.2, note: 'A4' },
+      { time: 16.8, note: 'G4' },
+      // 13〜16小節目：ド・ドレ / ミ・ミソ / ミ・ミレ・レ / ド
+      { time: 17.9, note: 'C4' }, { time: 18.5, note: 'C4' }, { time: 18.8, note: 'D4' },
+      { time: 19.3, note: 'E4' }, { time: 19.6, note: 'E4' }, { time: 20.0, note: 'G4' },
+      { time: 20.7, note: 'E4' }, { time: 21.0, note: 'E4' }, { time: 21.4, note: 'D4' }, { time: 21.7, note: 'D4' },
+      { time: 22.3, note: 'C4' },
     ],
   },
   {
-    id: 'oh_breneli',
-    title: 'おおブレネリ',
-    composer: 'スイス民謡（PD）',
+    id: 'katatsumuri',
+    title: 'かたつむり',
+    composer: '文部省唱歌（PD）',
     notes: [
-      // わたしの だいすきな ブレネリは
-      { time: 2.0, note: 'C4' }, { time: 2.5, note: 'E4' },
-      { time: 3.0, note: 'G4' }, { time: 3.5, note: 'G4' },
-      { time: 4.0, note: 'A4' }, { time: 4.5, note: 'A4' },
-      { time: 5.0, note: 'G4' },
-      // きれいな ひとみで ほほえむよ
-      { time: 6.2, note: 'F4' }, { time: 6.7, note: 'F4' },
-      { time: 7.2, note: 'E4' }, { time: 7.7, note: 'E4' },
-      { time: 8.2, note: 'D4' }, { time: 8.7, note: 'D4' },
-      { time: 9.2, note: 'C4' },
-      // ヤー ヤー ヤー ヤー
-      { time: 10.4, note: 'G4' }, { time: 11.0, note: 'E4' },
-      { time: 11.6, note: 'G4' }, { time: 12.2, note: 'E4' },
-      // ゆかいな ブレネリ
-      { time: 13.4, note: 'F4' }, { time: 13.9, note: 'D4' },
-      { time: 14.4, note: 'E4' }, { time: 14.9, note: 'C4' },
+      // 1〜4小節目：ソ・ソソミ / ド・ドドレ / ミ・ミレド / レ
+      { time: 2.0, note: 'G4' }, { time: 2.7, note: 'G4' }, { time: 3.0, note: 'G4' }, { time: 3.3, note: 'E4' },
+      { time: 4.0, note: 'C4' }, { time: 4.7, note: 'C4' }, { time: 5.0, note: 'C4' }, { time: 5.3, note: 'D4' },
+      { time: 6.0, note: 'E4' }, { time: 6.7, note: 'E4' }, { time: 7.0, note: 'D4' }, { time: 7.3, note: 'C4' },
+      { time: 8.0, note: 'D4' },
+      // 5〜8小節目：ミ・ファソラ / ソ・ソソミ / レ・レドレ / ミ
+      { time: 9.2, note: 'E4' }, { time: 9.6, note: 'F4' }, { time: 10.0, note: 'G4' }, { time: 10.4, note: 'A4' },
+      { time: 11.1, note: 'G4' }, { time: 11.8, note: 'G4' }, { time: 12.1, note: 'G4' }, { time: 12.4, note: 'E4' },
+      { time: 13.1, note: 'D4' }, { time: 13.5, note: 'D4' }, { time: 13.8, note: 'C4' }, { time: 14.1, note: 'D4' },
+      { time: 14.8, note: 'E4' },
+      // 9〜12小節目：ソ・ド↑ド↑ソ / ミ・ソソミ / ド・ミミレ / ド
+      { time: 16.0, note: 'G4' }, { time: 16.4, note: 'C5' }, { time: 16.8, note: 'C5' }, { time: 17.2, note: 'G4' },
+      { time: 17.9, note: 'E4' }, { time: 18.3, note: 'G4' }, { time: 18.7, note: 'G4' }, { time: 19.1, note: 'E4' },
+      { time: 19.8, note: 'C4' }, { time: 20.2, note: 'E4' }, { time: 20.7, note: 'E4' }, { time: 21.1, note: 'D4' },
+      { time: 21.7, note: 'C4' },
     ],
   },
   {
-    id: 'avignon',
-    title: 'アヴィニョンの橋の上で',
-    composer: 'フランス民謡（PD）',
+    id: 'senro',
+    title: '線路は続くよどこまでも',
+    composer: 'アメリカ民謡（PD）',
     notes: [
-      // アヴィニョンの はしのうえで
-      { time: 2.0, note: 'C4' }, { time: 2.45, note: 'D4' },
-      { time: 2.9, note: 'E4' }, { time: 3.35, note: 'C4' },
-      { time: 3.8, note: 'E4' }, { time: 4.25, note: 'F4' },
-      { time: 4.7, note: 'G4' },
-      // みんなおどるよ わになって
-      { time: 5.9, note: 'G4' }, { time: 6.35, note: 'A4' },
-      { time: 6.8, note: 'G4' }, { time: 7.25, note: 'E4' },
-      { time: 7.7, note: 'F4' }, { time: 8.15, note: 'D4' },
-      { time: 8.6, note: 'E4' },
-      // おとこも おんなも
-      { time: 9.8, note: 'C4' }, { time: 10.3, note: 'E4' },
-      { time: 10.8, note: 'G4' }, { time: 11.3, note: 'E4' },
-      // わになって おどるよ
-      { time: 12.5, note: 'F4' }, { time: 13.0, note: 'D4' },
-      { time: 13.5, note: 'E4' }, { time: 14.0, note: 'C4' },
+      // 1〜4小節目
+      { time: 2.0, note: 'C4' }, { time: 2.65, note: 'G4' },
+      { time: 3.0, note: 'C4' }, { time: 3.5, note: 'G4' }, { time: 3.75, note: 'C4' }, { time: 4.0, note: 'D4' },
+      { time: 4.5, note: 'E4' }, { time: 5.5, note: 'C4' },
+      { time: 6.5, note: 'F4' }, { time: 7.15, note: 'F4' }, { time: 7.5, note: 'C4' }, { time: 8.0, note: 'D4' }, { time: 8.5, note: 'E4' },
+      // 5〜8小節目
+      { time: 10.0, note: 'C4' }, { time: 10.65, note: 'G4' },
+      { time: 11.0, note: 'C4' }, { time: 11.5, note: 'G4' }, { time: 11.75, note: 'C4' }, { time: 12.0, note: 'D4' },
+      { time: 12.5, note: 'E4' }, { time: 13.5, note: 'C4' },
+      { time: 14.5, note: 'D4' }, { time: 15.15, note: 'D4' }, { time: 15.5, note: 'D4' }, { time: 16.0, note: 'E4' }, { time: 16.5, note: 'D4' },
+      // 9〜12小節目（#ド = C#4）
+      { time: 18.0, note: 'D4' }, { time: 18.65, note: 'D4' },
+      { time: 19.0, note: 'C#4' }, { time: 19.4, note: 'D4' }, { time: 19.8, note: 'E4' }, { time: 20.2, note: 'D4' },
+      { time: 20.7, note: 'C4' }, { time: 21.7, note: 'G4' },
+      { time: 22.7, note: 'F4' }, { time: 23.35, note: 'F4' }, { time: 23.7, note: 'C4' }, { time: 24.2, note: 'D4' }, { time: 24.7, note: 'E4' },
+      // 13〜16小節目
+      { time: 26.2, note: 'A4' }, { time: 26.85, note: 'B4' },
+      { time: 27.2, note: 'C5' }, { time: 27.6, note: 'B4' }, { time: 28.0, note: 'C5' }, { time: 28.4, note: 'A4' },
+      { time: 29.0, note: 'G4' }, { time: 29.65, note: 'G4' }, { time: 30.0, note: 'C4' },
+      { time: 31.0, note: 'E4' }, { time: 31.65, 'F4' } as unknown as SheetNote,
+    ].filter((n): n is SheetNote => 'time' in n && 'note' in n),
+  },
+  {
+    id: 'nanatsu_no_ko',
+    title: '七つの子',
+    composer: '本居長世（PD）',
+    notes: [
+      // 1〜4小節目
+      { time: 2.0, note: 'E4' }, { time: 2.7, note: 'D4' }, { time: 3.0, note: 'C4' }, { time: 3.5, note: 'D4' },
+      { time: 4.3, note: 'E4' }, { time: 4.8, note: 'C4' }, { time: 5.2, note: 'A4' }, { time: 5.6, note: 'C4' }, { time: 6.0, note: 'G4' },
+      { time: 6.8, note: 'A4' }, { time: 7.2, note: 'G4' }, { time: 7.6, note: 'E4' }, { time: 8.0, note: 'G4' }, { time: 8.4, note: 'A4' }, { time: 8.8, note: 'C5' }, { time: 9.2, note: 'D4' },
+      { time: 10.0, note: 'D4' },
+      // 5〜8小節目
+      { time: 11.4, note: 'E4' }, { time: 12.1, note: 'F4' }, { time: 12.5, note: 'G4' }, { time: 12.9, note: 'E4' },
+      { time: 13.7, note: 'G4' }, { time: 14.2, note: 'A4' }, { time: 14.6, note: 'G4' }, { time: 15.0, note: 'E4' }, { time: 15.4, note: 'C5' },
+      { time: 16.2, note: 'D4' }, { time: 16.6, note: 'D4' }, { time: 17.0, note: 'E4' }, { time: 17.4, note: 'C4' }, { time: 17.8, note: 'A4' }, { time: 18.2, note: 'G4' }, { time: 18.6, note: 'C4' },
+      { time: 19.4, note: 'C4' },
+      // 9〜12小節目
+      { time: 20.8, note: 'D4' }, { time: 21.5, note: 'D4' }, { time: 22.0, note: 'D4' },
+      { time: 22.8, note: 'D4' }, { time: 23.5, note: 'D4' }, { time: 23.9, note: 'D4' }, { time: 24.4, note: 'E4' },
+      { time: 25.2, note: 'F4' }, { time: 25.7, note: 'E4' }, { time: 26.1, note: 'D4' }, { time: 26.5, note: 'D4' }, { time: 26.9, note: 'D4' }, { time: 27.3, note: 'E4' }, { time: 27.7, note: 'A4' },
+      { time: 28.5, note: 'A4' },
+      // 13〜16小節目
+      { time: 29.9, note: 'G4' }, { time: 30.6, note: 'G4' }, { time: 31.1, note: 'G4' },
+      { time: 31.9, note: 'C5' }, { time: 32.6, note: 'C5' }, { time: 33.0, note: 'C5' }, { time: 33.5, note: 'D4' },
+      { time: 34.3, note: 'E4' }, { time: 34.8, note: 'F4' }, { time: 35.2, note: 'A4' }, { time: 35.6, note: 'C5' }, { time: 36.0, note: 'D4' },
+      { time: 36.8, note: 'D4' },
+      // 17〜20小節目
+      { time: 38.2, note: 'E4' }, { time: 38.9, note: 'D4' }, { time: 39.2, note: 'C4' }, { time: 39.7, note: 'D4' },
+      { time: 40.5, note: 'E4' }, { time: 41.0, note: 'C4' }, { time: 41.4, note: 'A4' }, { time: 41.8, note: 'C4' }, { time: 42.2, note: 'G4' },
+      { time: 43.0, note: 'A4' }, { time: 43.4, note: 'G4' }, { time: 43.8, note: 'E4' }, { time: 44.2, note: 'G4' }, { time: 44.6, note: 'A4' }, { time: 45.0, note: 'C5' }, { time: 45.4, note: 'D4' },
+      { time: 46.2, note: 'D4' },
+      // 21〜24小節目
+      { time: 47.6, note: 'E4' }, { time: 48.3, note: 'F4' }, { time: 48.7, note: 'G4' }, { time: 49.1, note: 'E4' },
+      { time: 49.9, note: 'G4' }, { time: 50.4, note: 'A4' }, { time: 50.8, note: 'G4' }, { time: 51.2, note: 'E4' }, { time: 51.6, note: 'C5' },
+      { time: 52.4, note: 'D4' }, { time: 52.8, note: 'D4' }, { time: 53.2, note: 'E4' }, { time: 53.6, note: 'C4' }, { time: 54.0, note: 'A4' }, { time: 54.4, note: 'G4' }, { time: 54.8, note: 'C4' },
+      { time: 55.6, note: 'C4' },
     ],
   },
   {
-    id: 'takibi',
-    title: 'たき火',
-    composer: '渡辺茂（PD）',
+    id: 'hotaru_no_hikari',
+    title: '蛍の光',
+    composer: 'スコットランド民謡（PD）',
     notes: [
-      // かきねの かきねの まがりかど
-      { time: 2.0, note: 'C4' }, { time: 2.5, note: 'D4' },
-      { time: 3.0, note: 'E4' }, { time: 3.5, note: 'G4' },
-      { time: 4.0, note: 'E4' }, { time: 4.5, note: 'D4' },
-      { time: 5.0, note: 'C4' },
-      // たき火だ たき火だ おちばたき
-      { time: 6.2, note: 'E4' }, { time: 6.7, note: 'F4' },
-      { time: 7.2, note: 'G4' }, { time: 7.7, note: 'A4' },
-      { time: 8.2, note: 'G4' }, { time: 8.7, note: 'E4' },
-      { time: 9.2, note: 'D4' },
-      // あたろうよ あたろうよ
-      { time: 10.4, note: 'G4' }, { time: 10.9, note: 'A4' },
-      { time: 11.4, note: 'G4' }, { time: 11.9, note: 'E4' },
-      // きたかぜ ピープー ふいている
-      { time: 13.1, note: 'C4' }, { time: 13.6, note: 'D4' },
-      { time: 14.1, note: 'E4' }, { time: 14.6, note: 'G4' },
-      { time: 15.1, note: 'E4' }, { time: 15.6, note: 'D4' },
-      { time: 16.1, note: 'C4' },
+      // 1〜5小節目
+      { time: 2.0, note: 'G4' },
+      { time: 2.7, note: 'C4' }, { time: 3.3, note: 'C4' }, { time: 3.7, note: 'C4' }, { time: 4.1, note: 'E4' },
+      { time: 4.8, note: 'D4' }, { time: 5.4, note: 'C4' }, { time: 5.8, note: 'D4' }, { time: 6.2, note: 'E4' },
+      { time: 6.9, note: 'C4' }, { time: 7.5, note: 'C4' }, { time: 7.9, note: 'E4' }, { time: 8.3, note: 'G4' },
+      { time: 9.0, note: 'A4' }, { time: 10.0, note: 'A4' },
+      // 6〜9小節目
+      { time: 11.2, note: 'G4' }, { time: 11.8, note: 'E4' }, { time: 12.2, note: 'E4' }, { time: 12.6, note: 'C4' },
+      { time: 13.3, note: 'D4' }, { time: 13.9, note: 'C4' }, { time: 14.3, note: 'D4' }, { time: 14.7, note: 'E4' },
+      { time: 15.4, note: 'C4' }, { time: 16.1, note: 'A4' }, { time: 16.5, note: 'A4' }, { time: 16.9, note: 'G4' },
+      { time: 17.6, note: 'C4' }, { time: 18.6, note: 'A4' },
+      // 10〜13小節目
+      { time: 19.8, note: 'G4' }, { time: 20.4, note: 'E4' }, { time: 20.8, note: 'E4' }, { time: 21.2, note: 'C4' },
+      { time: 21.9, note: 'D4' }, { time: 22.5, note: 'C4' }, { time: 22.9, note: 'D4' }, { time: 23.3, note: 'A4' },
+      { time: 24.0, note: 'G4' }, { time: 24.6, note: 'E4' }, { time: 25.0, note: 'E4' }, { time: 25.4, note: 'G4' },
+      { time: 26.1, note: 'A4' }, { time: 27.1, note: 'A4' },
+      // 14〜17小節目
+      { time: 28.3, note: 'G4' }, { time: 28.9, note: 'E4' }, { time: 29.3, note: 'E4' }, { time: 29.7, note: 'C4' },
+      { time: 30.4, note: 'D4' }, { time: 31.0, note: 'C4' }, { time: 31.4, note: 'D4' }, { time: 31.8, note: 'E4' },
+      { time: 32.5, note: 'C4' }, { time: 33.2, note: 'A4' }, { time: 33.6, note: 'A4' }, { time: 34.0, note: 'G4' },
+      { time: 34.7, note: 'C4' },
     ],
   },
 ];
