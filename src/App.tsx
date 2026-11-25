@@ -11,19 +11,32 @@ interface KeyConfig {
 }
 
 const KEYS: KeyConfig[] = [
-  { note: 'C4', label: 'ド', keyBind: 'A', freq: 261.63, isBlack: false, whiteIndex: 0 },
-  { note: 'C#4', label: 'ド#', keyBind: 'W', freq: 277.18, isBlack: true, whiteIndex: 0 },
-  { note: 'D4', label: 'レ', keyBind: 'S', freq: 293.66, isBlack: false, whiteIndex: 1 },
-  { note: 'D#4', label: 'レ#', keyBind: 'E', freq: 311.13, isBlack: true, whiteIndex: 1 },
-  { note: 'E4', label: 'ミ', keyBind: 'D', freq: 329.63, isBlack: false, whiteIndex: 2 },
-  { note: 'F4', label: 'ファ', keyBind: 'F', freq: 349.23, isBlack: false, whiteIndex: 3 },
-  { note: 'F#4', label: 'ファ#', keyBind: 'T', freq: 369.99, isBlack: true, whiteIndex: 3 },
-  { note: 'G4', label: 'ソ', keyBind: 'G', freq: 392.00, isBlack: false, whiteIndex: 4 },
-  { note: 'G#4', label: 'ソ#', keyBind: 'Y', freq: 415.30, isBlack: true, whiteIndex: 4 },
-  { note: 'A4', label: 'ラ', keyBind: 'H', freq: 440.00, isBlack: false, whiteIndex: 5 },
-  { note: 'A#4', label: 'ラ#', keyBind: 'U', freq: 466.16, isBlack: true, whiteIndex: 5 },
-  { note: 'B4', label: 'シ', keyBind: 'J', freq: 493.88, isBlack: false, whiteIndex: 6 },
-  { note: 'C5', label: 'ド↑', keyBind: 'K', freq: 523.25, isBlack: false, whiteIndex: 7 },
+  // 低音追加（白鍵 index 0〜2、黒鍵 index 0, 1）
+  { note: 'G3', label: 'ソ↓', keyBind: 'Z', freq: 196.00, isBlack: false, whiteIndex: 0 },
+  { note: 'G#3', label: 'ソ#↓', keyBind: '1', freq: 207.65, isBlack: true, whiteIndex: 0 },
+  { note: 'A3', label: 'ラ↓', keyBind: 'X', freq: 220.00, isBlack: false, whiteIndex: 1 },
+  { note: 'A#3', label: 'ラ#↓', keyBind: '2', freq: 233.08, isBlack: true, whiteIndex: 1 },
+  { note: 'B3', label: 'シ↓', keyBind: 'C', freq: 246.94, isBlack: false, whiteIndex: 2 },
+
+  // 基準オクターブ C4〜C5（白鍵 index 3〜10、黒鍵 index 3, 4, 6, 7, 8）
+  { note: 'C4', label: 'ド', keyBind: 'A', freq: 261.63, isBlack: false, whiteIndex: 3 },
+  { note: 'C#4', label: 'ド#', keyBind: 'W', freq: 277.18, isBlack: true, whiteIndex: 3 },
+  { note: 'D4', label: 'レ', keyBind: 'S', freq: 293.66, isBlack: false, whiteIndex: 4 },
+  { note: 'D#4', label: 'レ#', keyBind: 'E', freq: 311.13, isBlack: true, whiteIndex: 4 },
+  { note: 'E4', label: 'ミ', keyBind: 'D', freq: 329.63, isBlack: false, whiteIndex: 5 },
+  { note: 'F4', label: 'ファ', keyBind: 'F', freq: 349.23, isBlack: false, whiteIndex: 6 },
+  { note: 'F#4', label: 'ファ#', keyBind: 'T', freq: 369.99, isBlack: true, whiteIndex: 6 },
+  { note: 'G4', label: 'ソ', keyBind: 'G', freq: 392.00, isBlack: false, whiteIndex: 7 },
+  { note: 'G#4', label: 'ソ#', keyBind: 'Y', freq: 415.30, isBlack: true, whiteIndex: 7 },
+  { note: 'A4', label: 'ラ', keyBind: 'H', freq: 440.00, isBlack: false, whiteIndex: 8 },
+  { note: 'A#4', label: 'ラ#', keyBind: 'U', freq: 466.16, isBlack: true, whiteIndex: 8 },
+  { note: 'B4', label: 'シ', keyBind: 'J', freq: 493.88, isBlack: false, whiteIndex: 9 },
+  { note: 'C5', label: 'ド↑', keyBind: 'K', freq: 523.25, isBlack: false, whiteIndex: 10 },
+
+  // 高音追加（白鍵 index 11〜12、黒鍵 index 11）
+  { note: 'D5', label: 'レ↑', keyBind: 'L', freq: 587.33, isBlack: false, whiteIndex: 11 },
+  { note: 'D#5', label: 'レ#↑', keyBind: 'P', freq: 622.25, isBlack: true, whiteIndex: 11 },
+  { note: 'E5', label: 'ミ↑', keyBind: 'M', freq: 659.25, isBlack: false, whiteIndex: 12 },
 ];
 
 interface SheetNote {
@@ -38,14 +51,12 @@ interface Song {
   notes: SheetNote[];
 }
 
-// 添付楽譜に合わせて調整したパブリックドメイン楽曲 全10曲
 const SONGS: Song[] = [
   {
     id: 'twinkle',
     title: 'きらきら星',
     composer: 'フランス民謡（PD）',
     notes: [
-      // 1段目
       { time: 2.0, note: 'C4' }, { time: 2.5, note: 'C4' },
       { time: 3.0, note: 'G4' }, { time: 3.5, note: 'G4' },
       { time: 4.0, note: 'A4' }, { time: 4.5, note: 'A4' },
@@ -54,7 +65,6 @@ const SONGS: Song[] = [
       { time: 7.0, note: 'E4' }, { time: 7.5, note: 'E4' },
       { time: 8.0, note: 'D4' }, { time: 8.5, note: 'D4' },
       { time: 9.0, note: 'C4' },
-      // 2段目
       { time: 10.2, note: 'G4' }, { time: 10.7, note: 'G4' },
       { time: 11.2, note: 'F4' }, { time: 11.7, note: 'F4' },
       { time: 12.2, note: 'E4' }, { time: 12.7, note: 'E4' },
@@ -63,7 +73,6 @@ const SONGS: Song[] = [
       { time: 15.2, note: 'F4' }, { time: 15.7, note: 'F4' },
       { time: 16.2, note: 'E4' }, { time: 16.7, note: 'E4' },
       { time: 17.2, note: 'D4' },
-      // 3段目
       { time: 18.4, note: 'C4' }, { time: 18.9, note: 'C4' },
       { time: 19.4, note: 'G4' }, { time: 19.9, note: 'G4' },
       { time: 20.4, note: 'A4' }, { time: 20.9, note: 'A4' },
@@ -79,24 +88,16 @@ const SONGS: Song[] = [
     title: 'メリーさんのひつじ',
     composer: 'アメリカ民謡（PD）',
     notes: [
-      // 1小節目：ミ・レ・ド・レ（付点4分＋8分＋4分＋4分）
       { time: 2.0, note: 'E4' }, { time: 2.75, note: 'D4' },
       { time: 3.0, note: 'C4' }, { time: 3.5, note: 'D4' },
-      // 2小節目：ミ・ミ・ミ
       { time: 4.0, note: 'E4' }, { time: 4.5, note: 'E4' }, { time: 5.0, note: 'E4' },
-      // 3小節目：レ・レ・レ
       { time: 6.0, note: 'D4' }, { time: 6.5, note: 'D4' }, { time: 7.0, note: 'D4' },
-      // 4小節目：ミ・ソ・ソ
       { time: 8.0, note: 'E4' }, { time: 8.5, note: 'G4' }, { time: 9.0, note: 'G4' },
-      // 5小節目：ミ・レ・ド・レ
       { time: 10.2, note: 'E4' }, { time: 10.95, note: 'D4' },
       { time: 11.2, note: 'C4' }, { time: 11.7, note: 'D4' },
-      // 6小節目：ミ・ミ・ミ
       { time: 12.2, note: 'E4' }, { time: 12.7, note: 'E4' }, { time: 13.2, note: 'E4' },
-      // 7小節目：レ・レ・ミ・レ
       { time: 14.2, note: 'D4' }, { time: 14.7, note: 'D4' },
       { time: 15.2, note: 'E4' }, { time: 15.95, note: 'D4' },
-      // 8小節目：ド（全音符）
       { time: 16.2, note: 'C4' },
     ],
   },
@@ -105,13 +106,11 @@ const SONGS: Song[] = [
     title: 'ちょうちょう',
     composer: 'スペイン民謡（PD）',
     notes: [
-      // 1段目
       { time: 2.0, note: 'G4' }, { time: 2.5, note: 'E4' }, { time: 3.0, note: 'E4' },
       { time: 4.0, note: 'F4' }, { time: 4.5, note: 'D4' }, { time: 5.0, note: 'D4' },
       { time: 6.0, note: 'C4' }, { time: 6.5, note: 'D4' },
       { time: 7.0, note: 'E4' }, { time: 7.5, note: 'F4' },
       { time: 8.0, note: 'G4' }, { time: 8.5, note: 'G4' }, { time: 9.0, note: 'G4' },
-      // 2段目
       { time: 10.2, note: 'G4' }, { time: 10.7, note: 'E4' },
       { time: 11.2, note: 'E4' }, { time: 11.7, note: 'E4' },
       { time: 12.2, note: 'F4' }, { time: 12.7, note: 'D4' },
@@ -119,19 +118,19 @@ const SONGS: Song[] = [
       { time: 14.2, note: 'C4' }, { time: 14.7, note: 'E4' },
       { time: 15.2, note: 'G4' }, { time: 15.7, note: 'G4' },
       { time: 16.2, note: 'E4' }, { time: 16.7, note: 'E4' }, { time: 17.2, note: 'E4' },
-      // 3段目
       { time: 18.4, note: 'D4' }, { time: 18.9, note: 'D4' },
       { time: 19.4, note: 'D4' }, { time: 19.9, note: 'D4' },
       { time: 20.4, note: 'D4' }, { time: 20.9, note: 'E4' }, { time: 21.4, note: 'F4' },
       { time: 22.4, note: 'E4' }, { time: 22.9, note: 'E4' },
       { time: 23.4, note: 'E4' }, { time: 23.9, note: 'E4' },
       { time: 24.4, note: 'E4' }, { time: 24.9, note: 'F4' }, { time: 25.4, note: 'G4' },
-      // 4段目
-      { time: 26.6, note: 'G4' }, { time: 27.1, note: 'E4' }, { time: 27.6, note: 'E4' },
-      { time: 28.6, note: 'F4' }, { time: 29.1, note: 'D4' }, { time: 29.6, note: 'D4' },
+      { time: 26.6, note: 'G4' }, { time: 27.1, note: 'E4' },
+      { time: 27.6, note: 'E4' }, { time: 28.1, note: 'E4' },
+      { time: 28.6, note: 'F4' }, { time: 29.1, note: 'D4' },
+      { time: 29.6, note: 'D4' }, { time: 30.1, note: 'D4' },
       { time: 30.6, note: 'C4' }, { time: 31.1, note: 'E4' },
-      { time: 31.6, note: 'G4' }, { time: 32.1, note: 'G4' }, { time: 32.6, note: 'E4' },
-      { time: 33.1, note: 'E4' }, { time: 33.6, note: 'E4' },
+      { time: 31.6, note: 'G4' }, { time: 32.1, note: 'G4' },
+      { time: 32.6, note: 'E4' }, { time: 33.1, note: 'E4' }, { time: 33.6, note: 'E4' },
     ],
   },
   {
@@ -139,25 +138,18 @@ const SONGS: Song[] = [
     title: 'かえるの合唱',
     composer: 'ドイツ民謡（PD）',
     notes: [
-      // 1小節目：ド・レ・ミ・ファ
       { time: 2.0, note: 'C4' }, { time: 2.5, note: 'D4' },
       { time: 3.0, note: 'E4' }, { time: 3.5, note: 'F4' },
-      // 2小節目：ミ・レ・ド
       { time: 4.0, note: 'E4' }, { time: 4.5, note: 'D4' }, { time: 5.0, note: 'C4' },
-      // 3小節目：ミ・ファ・ソ・ラ
       { time: 6.0, note: 'E4' }, { time: 6.5, note: 'F4' },
       { time: 7.0, note: 'G4' }, { time: 7.5, note: 'A4' },
-      // 4小節目：ソ・ファ・ミ
       { time: 8.0, note: 'G4' }, { time: 8.5, note: 'F4' }, { time: 9.0, note: 'E4' },
-      // 5〜6小節目：ド（4分＋休符）×4
       { time: 10.2, note: 'C4' }, { time: 11.2, note: 'C4' },
       { time: 12.2, note: 'C4' }, { time: 13.2, note: 'C4' },
-      // 7小節目：ドドレレミミファファ（8分音符8個）
       { time: 14.2, note: 'C4' }, { time: 14.45, note: 'C4' },
       { time: 14.7, note: 'D4' }, { time: 14.95, note: 'D4' },
       { time: 15.2, note: 'E4' }, { time: 15.45, note: 'E4' },
       { time: 15.7, note: 'F4' }, { time: 15.95, note: 'F4' },
-      // 8小節目：ミ・レ・ド
       { time: 16.2, note: 'E4' }, { time: 16.7, note: 'D4' }, { time: 17.2, note: 'C4' },
     ],
   },
@@ -166,28 +158,20 @@ const SONGS: Song[] = [
     title: 'むすんでひらいて',
     composer: 'ルソー作曲（PD）',
     notes: [
-      // 1小節目：ミ・ミ・レ・ド・ド（8分×2、4分×3）
       { time: 2.0, note: 'E4' }, { time: 2.25, note: 'E4' },
       { time: 2.5, note: 'D4' }, { time: 3.0, note: 'C4' }, { time: 3.5, note: 'C4' },
-      // 2小節目：レ・レ・ミ・レ・ド
       { time: 4.0, note: 'D4' }, { time: 4.25, note: 'D4' },
       { time: 4.5, note: 'E4' }, { time: 5.0, note: 'D4' }, { time: 5.5, note: 'C4' },
-      // 3小節目：ソ・ソ・ファ・ミ・ミ
       { time: 6.0, note: 'G4' }, { time: 6.25, note: 'G4' },
       { time: 6.5, note: 'F4' }, { time: 7.0, note: 'E4' }, { time: 7.5, note: 'E4' },
-      // 4小節目：レ・ド・レ・ミ・ド
       { time: 8.0, note: 'D4' }, { time: 8.25, note: 'C4' },
       { time: 8.5, note: 'D4' }, { time: 8.75, note: 'E4' }, { time: 9.0, note: 'C4' },
-      // 5小節目：ミ・ミ・ファ・ソ・ソ
       { time: 10.2, note: 'E4' }, { time: 10.45, note: 'E4' },
       { time: 10.7, note: 'F4' }, { time: 11.2, note: 'G4' }, { time: 11.7, note: 'G4' },
-      // 6小節目：ラ・ラ・ソ・ファ・ミ
       { time: 12.2, note: 'A4' }, { time: 12.45, note: 'A4' },
       { time: 12.7, note: 'G4' }, { time: 12.95, note: 'F4' }, { time: 13.2, note: 'E4' },
-      // 7小節目：ミ・ミ・ファ・ソ・ソ
       { time: 14.2, note: 'E4' }, { time: 14.45, note: 'E4' },
       { time: 14.7, note: 'F4' }, { time: 15.2, note: 'G4' }, { time: 15.7, note: 'G4' },
-      // 8小節目：ラ・ラ・ソ
       { time: 16.2, note: 'A4' }, { time: 16.45, note: 'A4' }, { time: 16.7, note: 'G4' },
     ],
   },
@@ -196,23 +180,15 @@ const SONGS: Song[] = [
     title: 'ロンドン橋',
     composer: 'イギリス伝承曲（PD）',
     notes: [
-      // 1小節目：ソ・ラ・ソ・ファ
       { time: 2.0, note: 'G4' }, { time: 2.5, note: 'A4' },
       { time: 3.0, note: 'G4' }, { time: 3.5, note: 'F4' },
-      // 2小節目：ミ・ファ・ソ
       { time: 4.0, note: 'E4' }, { time: 4.5, note: 'F4' }, { time: 5.0, note: 'G4' },
-      // 3小節目：レ・ミ・ファ
       { time: 6.0, note: 'D4' }, { time: 6.5, note: 'E4' }, { time: 7.0, note: 'F4' },
-      // 4小節目：ミ・ファ・ソ
       { time: 8.0, note: 'E4' }, { time: 8.5, note: 'F4' }, { time: 9.0, note: 'G4' },
-      // 5小節目：ソ・ラ・ソ・ファ
       { time: 10.2, note: 'G4' }, { time: 10.7, note: 'A4' },
       { time: 11.2, note: 'G4' }, { time: 11.7, note: 'F4' },
-      // 6小節目：ミ・ファ・ソ
       { time: 12.2, note: 'E4' }, { time: 12.7, note: 'F4' }, { time: 13.2, note: 'G4' },
-      // 7小節目：レ・ソ
       { time: 14.2, note: 'D4' }, { time: 15.2, note: 'G4' },
-      // 8小節目：ミ・ド
       { time: 16.2, note: 'E4' }, { time: 16.7, note: 'C4' },
     ],
   },
@@ -221,27 +197,20 @@ const SONGS: Song[] = [
     title: '春が来た',
     composer: '岡野貞一（PD）',
     notes: [
-      // 1小節目：ソ・ミファ・ソ・ラ
       { time: 2.0, note: 'G4' }, { time: 2.5, note: 'E4' }, { time: 2.75, note: 'F4' },
       { time: 3.0, note: 'G4' }, { time: 3.5, note: 'A4' },
-      // 2小節目：ソ・ミファ・ソ・ド↑
       { time: 4.0, note: 'G4' }, { time: 4.5, note: 'E4' }, { time: 4.75, note: 'F4' },
       { time: 5.0, note: 'G4' }, { time: 5.5, note: 'C5' },
-      // 3小節目：ラ・ソ・ミ・ド
       { time: 6.0, note: 'A4' }, { time: 6.5, note: 'G4' },
       { time: 7.0, note: 'E4' }, { time: 7.75, note: 'C4' },
-      // 4小節目：レ（付点2分）
       { time: 8.0, note: 'D4' },
-      // 5小節目：ソ・ラソ・ミ・ソ
       { time: 10.2, note: 'G4' }, { time: 10.7, note: 'A4' }, { time: 10.95, note: 'G4' },
       { time: 11.2, note: 'E4' }, { time: 11.7, note: 'G4' },
-      // 6小節目：ド↑・レド↑・ラ・ド↑
-      { time: 12.2, note: 'C5' }, { time: 12.7, note: 'D4' }, { time: 12.95, note: 'C5' },
+      // 6小節目：高いレ（D5）を追加した鍵盤で再現
+      { time: 12.2, note: 'C5' }, { time: 12.7, note: 'D5' }, { time: 12.95, note: 'C5' },
       { time: 13.2, note: 'A4' }, { time: 13.7, note: 'C5' },
-      // 7小節目：ソ・ミ・レ・ソ
       { time: 14.2, note: 'G4' }, { time: 14.7, note: 'E4' },
       { time: 15.2, note: 'D4' }, { time: 15.95, note: 'G4' },
-      // 8小節目：ド（全音符）
       { time: 16.2, note: 'C4' },
     ],
   },
@@ -250,35 +219,29 @@ const SONGS: Song[] = [
     title: 'さくら さくら',
     composer: '日本古謡（PD）',
     notes: [
-      // 1〜2小節目：ラ・ラ・シ（×2）
-      { time: 2.0, note: 'A4' }, { time: 2.5, note: 'A4' }, { time: 3.0, note: 'B4' },
-      { time: 4.0, note: 'A4' }, { time: 4.5, note: 'A4' }, { time: 5.0, note: 'B4' },
-      // 3〜4小節目：ラ・シ・ド↑・シ / ラ・シラファ
-      { time: 6.0, note: 'A4' }, { time: 6.5, note: 'B4' },
-      { time: 7.0, note: 'C5' }, { time: 7.5, note: 'B4' },
-      { time: 8.0, note: 'A4' }, { time: 8.5, note: 'B4' },
-      { time: 8.75, note: 'A4' }, { time: 9.0, note: 'F4' },
-      // 5〜6小節目：ミ・ド・ミ・ファ / ミ・ミド・シ
-      { time: 10.2, note: 'E4' }, { time: 10.7, note: 'C4' },
-      { time: 11.2, note: 'E4' }, { time: 11.7, note: 'F4' },
-      { time: 12.2, note: 'E4' }, { time: 12.7, note: 'E4' },
-      { time: 12.95, note: 'C4' }, { time: 13.2, note: 'B4' },
-      // 7〜8小節目（繰り返し1）
-      { time: 14.4, note: 'A4' }, { time: 14.9, note: 'B4' },
-      { time: 15.4, note: 'C5' }, { time: 15.9, note: 'B4' },
-      { time: 16.4, note: 'A4' }, { time: 16.9, note: 'B4' },
-      { time: 17.15, note: 'A4' }, { time: 17.4, note: 'F4' },
-      // 9〜10小節目（繰り返し2）
-      { time: 18.6, note: 'E4' }, { time: 19.1, note: 'C4' },
-      { time: 19.6, note: 'E4' }, { time: 20.1, note: 'F4' },
-      { time: 20.6, note: 'E4' }, { time: 21.1, note: 'E4' },
-      { time: 21.35, note: 'C4' }, { time: 21.6, note: 'B4' },
-      // 11〜14小節目（結び）
-      { time: 22.8, note: 'A4' }, { time: 23.3, note: 'A4' }, { time: 23.8, note: 'B4' },
-      { time: 24.8, note: 'A4' }, { time: 25.3, note: 'A4' }, { time: 25.8, note: 'B4' },
-      { time: 26.8, note: 'E4' }, { time: 27.3, note: 'F4' },
-      { time: 27.8, note: 'B4' }, { time: 28.05, note: 'A4' }, { time: 28.3, note: 'F4' },
-      { time: 28.8, note: 'E4' },
+      { time: 2.0, note: 'A4' }, { time: 2.75, note: 'A4' }, { time: 3.5, note: 'B4' },
+      { time: 4.5, note: 'A4' }, { time: 5.25, note: 'A4' }, { time: 6.0, note: 'B4' },
+      { time: 7.0, note: 'A4' }, { time: 7.5, note: 'B4' },
+      { time: 8.0, note: 'C5' }, { time: 8.5, note: 'B4' },
+      { time: 9.0, note: 'A4' }, { time: 9.5, note: 'B4' },
+      { time: 9.75, note: 'A4' }, { time: 10.0, note: 'F4' },
+      { time: 11.0, note: 'E4' }, { time: 11.5, note: 'C4' },
+      { time: 12.0, note: 'E4' }, { time: 12.5, note: 'F4' },
+      { time: 13.0, note: 'E4' }, { time: 13.5, note: 'E4' },
+      { time: 13.75, note: 'C4' }, { time: 14.0, note: 'B4' },
+      { time: 15.0, note: 'A4' }, { time: 15.5, note: 'B4' },
+      { time: 16.0, note: 'C5' }, { time: 16.5, note: 'B4' },
+      { time: 17.0, note: 'A4' }, { time: 17.5, note: 'B4' },
+      { time: 17.75, note: 'A4' }, { time: 18.0, note: 'F4' },
+      { time: 19.0, note: 'E4' }, { time: 19.5, note: 'C4' },
+      { time: 20.0, note: 'E4' }, { time: 20.5, note: 'F4' },
+      { time: 21.0, note: 'E4' }, { time: 21.5, note: 'E4' },
+      { time: 21.75, note: 'C4' }, { time: 22.0, note: 'B4' },
+      { time: 23.0, note: 'A4' }, { time: 23.75, note: 'A4' }, { time: 24.5, note: 'B4' },
+      { time: 25.5, note: 'A4' }, { time: 26.25, note: 'A4' }, { time: 27.0, note: 'B4' },
+      { time: 28.0, note: 'E4' }, { time: 28.5, note: 'F4' },
+      { time: 29.0, note: 'B4' }, { time: 29.25, note: 'A4' }, { time: 29.5, note: 'F4' },
+      { time: 30.0, note: 'E4' },
     ],
   },
   {
@@ -286,31 +249,26 @@ const SONGS: Song[] = [
     title: 'きよしこの夜',
     composer: 'グルーバー（PD）',
     notes: [
-      // 1〜2小節目：ソ・ラ・ソ・ミ（×2）
-      { time: 2.0, note: 'G4' }, { time: 2.75, note: 'A4' },
+      { time: 2.0, note: 'G4' }, { time: 2.65, note: 'A4' },
       { time: 3.0, note: 'G4' }, { time: 3.5, note: 'E4' },
-      { time: 5.0, note: 'G4' }, { time: 5.75, note: 'A4' },
+      { time: 5.0, note: 'G4' }, { time: 5.65, note: 'A4' },
       { time: 6.0, note: 'G4' }, { time: 6.5, note: 'E4' },
-      // 3〜4小節目：レ・レ・シ / ド・ド・ソ
-      { time: 8.0, note: 'D4' }, { time: 9.0, note: 'D4' }, { time: 9.5, note: 'B4' },
-      { time: 11.0, note: 'C5' }, { time: 12.0, note: 'C5' }, { time: 12.5, note: 'G4' },
-      // 5〜6小節目：ラ・ラ・ド↑・シ・ラ / ソ・ラ・ソ・ミ
+      { time: 8.0, note: 'D4' }, { time: 9.0, note: 'D4' }, { time: 9.5, note: 'B3' },
+      { time: 11.0, note: 'C4' }, { time: 12.0, note: 'C4' }, { time: 12.5, note: 'G3' },
       { time: 14.0, note: 'A4' }, { time: 15.0, note: 'A4' },
-      { time: 15.5, note: 'C5' }, { time: 16.25, note: 'B4' }, { time: 16.5, note: 'A4' },
-      { time: 17.0, note: 'G4' }, { time: 17.75, note: 'A4' },
+      { time: 15.5, note: 'C5' }, { time: 16.15, note: 'B4' }, { time: 16.5, note: 'A4' },
+      { time: 17.0, note: 'G4' }, { time: 17.65, note: 'A4' },
       { time: 18.0, note: 'G4' }, { time: 18.5, note: 'E4' },
-      // 7〜8小節目：ラ・ラ・ド↑・シ・ラ / ソ・ラ・ソ・ミ
       { time: 20.0, note: 'A4' }, { time: 21.0, note: 'A4' },
-      { time: 21.5, note: 'C5' }, { time: 22.25, note: 'B4' }, { time: 22.5, note: 'A4' },
-      { time: 23.0, note: 'G4' }, { time: 23.75, note: 'A4' },
+      { time: 21.5, note: 'C5' }, { time: 22.15, note: 'B4' }, { time: 22.5, note: 'A4' },
+      { time: 23.0, note: 'G4' }, { time: 23.65, note: 'A4' },
       { time: 24.0, note: 'G4' }, { time: 24.5, note: 'E4' },
-      // 9〜10小節目：レ・レ・ファ・レ・シ / ド（付点2分） / ミ（付点2分）
+      // 9〜10小節目：高いレ（D5）・低いシ（B3）を活用
       { time: 26.0, note: 'D4' }, { time: 27.0, note: 'D4' },
-      { time: 27.5, note: 'F4' }, { time: 28.25, note: 'D4' }, { time: 28.5, note: 'B4' },
+      { time: 27.5, note: 'F4' }, { time: 28.15, note: 'D4' }, { time: 28.5, note: 'B3' },
       { time: 29.0, note: 'C5' }, { time: 30.5, note: 'E4' },
-      // 11〜12小節目：ド・ソ・ミ / ソ・ファ・レ / ド（付点2分）
       { time: 32.0, note: 'C4' }, { time: 32.5, note: 'G4' }, { time: 33.0, note: 'E4' },
-      { time: 33.5, note: 'G4' }, { time: 34.25, note: 'F4' }, { time: 34.5, note: 'D4' },
+      { time: 33.5, note: 'G4' }, { time: 34.15, note: 'F4' }, { time: 34.5, note: 'D4' },
       { time: 35.0, note: 'C4' },
     ],
   },
@@ -319,7 +277,6 @@ const SONGS: Song[] = [
     title: 'よろこびの歌',
     composer: 'ベートーヴェン（PD）',
     notes: [
-      // 1〜4小節目
       { time: 2.0, note: 'E4' }, { time: 2.5, note: 'E4' },
       { time: 3.0, note: 'F4' }, { time: 3.5, note: 'G4' },
       { time: 4.0, note: 'G4' }, { time: 4.5, note: 'F4' },
@@ -327,7 +284,6 @@ const SONGS: Song[] = [
       { time: 6.0, note: 'C4' }, { time: 6.5, note: 'C4' },
       { time: 7.0, note: 'D4' }, { time: 7.5, note: 'E4' },
       { time: 8.0, note: 'E4' }, { time: 8.75, note: 'D4' }, { time: 9.0, note: 'D4' },
-      // 5〜8小節目
       { time: 10.2, note: 'E4' }, { time: 10.7, note: 'E4' },
       { time: 11.2, note: 'F4' }, { time: 11.7, note: 'G4' },
       { time: 12.2, note: 'G4' }, { time: 12.7, note: 'F4' },
@@ -335,7 +291,6 @@ const SONGS: Song[] = [
       { time: 14.2, note: 'C4' }, { time: 14.7, note: 'C4' },
       { time: 15.2, note: 'D4' }, { time: 15.7, note: 'E4' },
       { time: 16.2, note: 'D4' }, { time: 16.95, note: 'C4' }, { time: 17.2, note: 'C4' },
-      // 9〜12小節目
       { time: 18.4, note: 'D4' }, { time: 18.9, note: 'D4' },
       { time: 19.4, note: 'E4' }, { time: 19.9, note: 'C4' },
       { time: 20.4, note: 'D4' }, { time: 20.9, note: 'E4' },
@@ -343,8 +298,8 @@ const SONGS: Song[] = [
       { time: 22.4, note: 'D4' }, { time: 22.9, note: 'E4' },
       { time: 23.15, note: 'F4' }, { time: 23.4, note: 'E4' }, { time: 23.9, note: 'D4' },
       { time: 24.4, note: 'C4' }, { time: 24.9, note: 'D4' },
-      { time: 25.4, note: 'G4' }, { time: 25.9, note: 'E4' },
-      // 13〜16小節目
+      // 12小節目の低いソ（G3）→ ミ（E4）
+      { time: 25.4, note: 'G3' }, { time: 25.9, note: 'E4' },
       { time: 26.9, note: 'E4' }, { time: 27.4, note: 'E4' },
       { time: 27.9, note: 'F4' }, { time: 28.4, note: 'G4' },
       { time: 28.9, note: 'G4' }, { time: 29.4, note: 'F4' },
@@ -605,14 +560,18 @@ export default function App() {
 
   const getLaneTopPercent = (noteName: string) => {
     const idx = KEYS.findIndex((k) => k.note === noteName);
+    if (idx === -1) return 50;
     const ratio = idx / (KEYS.length - 1);
     return 82 - ratio * 64;
   };
 
+  const whiteKeys = KEYS.filter((k) => !k.isBlack);
+  const blackKeys = KEYS.filter((k) => k.isBlack);
+
   const getKeyboardCenterPercent = (noteName: string) => {
     const keyInfo = KEYS.find((k) => k.note === noteName);
     if (!keyInfo) return 50;
-    const whiteCount = 8;
+    const whiteCount = whiteKeys.length;
     if (keyInfo.isBlack) {
       return ((keyInfo.whiteIndex + 1) / whiteCount) * 100;
     }
@@ -652,9 +611,6 @@ export default function App() {
   const nextTargetNote = isRunning
     ? visibleNotesCoords.find((n) => !n.missed && n.timeDiff >= -0.25 && n.timeDiff <= 1.1)
     : undefined;
-
-  const whiteKeys = KEYS.filter((k) => !k.isBlack);
-  const blackKeys = KEYS.filter((k) => k.isBlack);
 
   return (
     <div className="stage-container">
