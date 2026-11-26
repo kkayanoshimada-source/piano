@@ -38,7 +38,6 @@ interface Song {
   notes: SheetNote[];
 }
 
-// 著作権切れ（PD）かつ現在の13鍵盤（C4〜C5）で最後まで演奏できる全11曲
 const SONGS: Song[] = [
   {
     id: 'twinkle',
@@ -159,463 +158,46 @@ const SONGS: Song[] = [
     ],
   },
   {
-    // アルプス一万尺（4/4拍子・♩=140 -> 1拍 = 0.4286s、各小節4拍固定）
-    id: 'alps',
-    title: 'アルプス一万尺',
-    composer: 'アメリカ民謡（PD）',
-    notes: (() => {
-      const b = 60 / 140; // 約0.4286s
-      const start = 2.0;
-      const pushBar = (
-        arr: SheetNote[],
-        barIndex: number,
-        events: Array<{ beat: number; note: string }>
-      ) => {
-        const barStart = start + barIndex * 4 * b;
-        events.forEach((ev) => {
-          arr.push({ time: Number((barStart + ev.beat * b).toFixed(4)), note: ev.note });
-        });
-      };
-      const out: SheetNote[] = [];
-      // 1〜4小節
-      pushBar(out, 0, [
-        { beat: 0, note: 'C4' }, { beat: 1, note: 'C4' }, { beat: 2, note: 'D4' }, { beat: 3, note: 'E4' },
-      ]);
-      pushBar(out, 1, [
-        { beat: 0, note: 'C4' }, { beat: 1, note: 'E4' }, { beat: 2, note: 'D4' }, { beat: 3, note: 'G4' },
-      ]);
-      pushBar(out, 2, [
-        { beat: 0, note: 'C4' }, { beat: 1, note: 'C4' }, { beat: 2, note: 'D4' }, { beat: 3, note: 'E4' },
-      ]);
-      pushBar(out, 3, [
-        { beat: 0, note: 'C4' }, { beat: 2, note: 'B4' }, { beat: 3, note: 'G4' },
-      ]);
-      // 5〜8小節
-      pushBar(out, 4, [
-        { beat: 0, note: 'C4' }, { beat: 1, note: 'C4' }, { beat: 2, note: 'D4' }, { beat: 3, note: 'E4' },
-      ]);
-      pushBar(out, 5, [
-        { beat: 0, note: 'F4' }, { beat: 1, note: 'E4' }, { beat: 2, note: 'D4' }, { beat: 3, note: 'C4' },
-      ]);
-      pushBar(out, 6, [
-        { beat: 0, note: 'B4' }, { beat: 1, note: 'G4' }, { beat: 2, note: 'A4' }, { beat: 3, note: 'B4' },
-      ]);
-      pushBar(out, 7, [
-        { beat: 0, note: 'C5' }, { beat: 2, note: 'C5' },
-      ]);
-      // 9〜12小節（付点4分=1.5拍, 8分=0.5拍）
-      pushBar(out, 8, [
-        { beat: 0, note: 'A4' }, { beat: 1.5, note: 'B4' }, { beat: 2, note: 'A4' }, { beat: 3, note: 'G4' },
-      ]);
-      pushBar(out, 9, [
-        { beat: 0, note: 'A4' }, { beat: 1, note: 'B4' }, { beat: 2, note: 'C5' }, { beat: 3, note: 'A4' },
-      ]);
-      pushBar(out, 10, [
-        { beat: 0, note: 'G4' }, { beat: 1.5, note: 'A4' }, { beat: 2, note: 'G4' }, { beat: 3, note: 'F4' },
-      ]);
-      pushBar(out, 11, [
-        { beat: 0, note: 'E4' }, { beat: 2, note: 'G4' },
-      ]);
-      // 13〜16小節
-      pushBar(out, 12, [
-        { beat: 0, note: 'A4' }, { beat: 1.5, note: 'B4' }, { beat: 2, note: 'A4' }, { beat: 3, note: 'G4' },
-      ]);
-      pushBar(out, 13, [
-        { beat: 0, note: 'A4' }, { beat: 1, note: 'B4' }, { beat: 2, note: 'C5' }, { beat: 3, note: 'A4' },
-      ]);
-      pushBar(out, 14, [
-        { beat: 0, note: 'G4' }, { beat: 1, note: 'C5' }, { beat: 2, note: 'B4' }, { beat: 3, note: 'D4' },
-      ]);
-      pushBar(out, 15, [
-        { beat: 0, note: 'C5' },
-      ]);
-      return out;
-    })(),
-  },
-  {
-    // 大きな栗の木の下で（2/4拍子・♩=112 -> 1拍 = 0.5357s、各小節2拍固定）
     id: 'ookina_kuri',
     title: '大きな栗の木の下で',
     composer: '伝統曲（PD）',
-    notes: (() => {
-      const b = 60 / 112; // 約0.5357s
-      const start = 2.0;
-      const pushBar = (
-        arr: SheetNote[],
-        barIndex: number,
-        events: Array<{ beat: number; note: string }>
-      ) => {
-        const barStart = start + barIndex * 2 * b;
-        events.forEach((ev) => {
-          arr.push({ time: Number((barStart + ev.beat * b).toFixed(4)), note: ev.note });
-        });
-      };
-      const out: SheetNote[] = [];
-      // 1〜4小節：ド(1) ドレ(1.5, 2) / ミ(1) ミソ(1.5, 2) / ミミ(1, 1.5) レレ(2, 2.5) / ド(1) [4分休]
-      pushBar(out, 0, [
-        { beat: 0, note: 'C4' }, { beat: 1, note: 'C4' }, { beat: 1.5, note: 'D4' },
-      ]);
-      pushBar(out, 1, [
-        { beat: 0, note: 'E4' }, { beat: 1, note: 'E4' }, { beat: 1.5, note: 'G4' },
-      ]);
-      pushBar(out, 2, [
-        { beat: 0, note: 'E4' }, { beat: 0.5, note: 'E4' }, { beat: 1.0, note: 'D4' }, { beat: 1.5, note: 'D4' },
-      ]);
-      pushBar(out, 3, [
-        { beat: 0, note: 'C4' },
-      ]);
-      // 5〜8小節：ミ(1) ミファ(1.5, 2) / ソ(1) ド↑(2) / ラ(1) ド↑(2) / ソ(1) [4分休]
-      pushBar(out, 4, [
-        { beat: 0, note: 'E4' }, { beat: 1, note: 'E4' }, { beat: 1.5, note: 'F4' },
-      ]);
-      pushBar(out, 5, [
-        { beat: 0, note: 'G4' }, { beat: 1, note: 'C5' },
-      ]);
-      pushBar(out, 6, [
-        { beat: 0, note: 'A4' }, { beat: 1, note: 'C5' },
-      ]);
-      pushBar(out, 7, [
-        { beat: 0, note: 'G4' },
-      ]);
-      // 9〜12小節：ド↑(1) ド↑(2) / シ(1) ソ(2) / ララ(1, 1.5) ララ(2, 2.5) / ソ(1) [4分休]
-      pushBar(out, 8, [
-        { beat: 0, note: 'C5' }, { beat: 1, note: 'C5' },
-      ]);
-      pushBar(out, 9, [
-        { beat: 0, note: 'B4' }, { beat: 1, note: 'G4' },
-      ]);
-      pushBar(out, 10, [
-        { beat: 0, note: 'A4' }, { beat: 0.5, note: 'A4' }, { beat: 1.0, note: 'A4' }, { beat: 1.5, note: 'A4' },
-      ]);
-      pushBar(out, 11, [
-        { beat: 0, note: 'G4' },
-      ]);
-      // 13〜16小節
-      pushBar(out, 12, [
-        { beat: 0, note: 'C4' }, { beat: 1, note: 'C4' }, { beat: 1.5, note: 'D4' },
-      ]);
-      pushBar(out, 13, [
-        { beat: 0, note: 'E4' }, { beat: 1, note: 'E4' }, { beat: 1.5, note: 'G4' },
-      ]);
-      pushBar(out, 14, [
-        { beat: 0, note: 'E4' }, { beat: 0.5, note: 'E4' }, { beat: 1.0, note: 'D4' }, { beat: 1.5, note: 'D4' },
-      ]);
-      pushBar(out, 15, [
-        { beat: 0, note: 'C4' },
-      ]);
-      return out;
-    })(),
+    notes: [
+      { time: 2.0, note: 'C4' }, { time: 2.55, note: 'C4' }, { time: 2.8, note: 'D4' },
+      { time: 3.25, note: 'E4' }, { time: 3.7, note: 'E4' }, { time: 4.15, note: 'G4' },
+      { time: 4.6, note: 'E4' }, { time: 4.85, note: 'E4' }, { time: 5.1, note: 'D4' }, { time: 5.35, note: 'D4' },
+      { time: 5.8, note: 'C4' },
+      { time: 6.8, note: 'E4' }, { time: 7.35, note: 'E4' }, { time: 7.6, note: 'F4' },
+      { time: 8.05, note: 'G4' }, { time: 8.6, note: 'C5' },
+      { time: 9.15, note: 'A4' }, { time: 9.7, note: 'C5' },
+      { time: 10.25, note: 'G4' },
+      { time: 11.25, note: 'C5' }, { time: 11.8, note: 'C5' },
+      { time: 12.35, note: 'B4' }, { time: 12.9, note: 'G4' },
+      { time: 13.45, note: 'A4' }, { time: 13.7, note: 'A4' }, { time: 13.95, note: 'A4' }, { time: 14.2, note: 'A4' },
+      { time: 14.65, note: 'G4' },
+      { time: 15.65, note: 'C4' }, { time: 16.2, note: 'C4' }, { time: 16.45, note: 'D4' },
+      { time: 16.9, note: 'E4' }, { time: 17.35, note: 'E4' }, { time: 17.8, note: 'G4' },
+      { time: 18.25, note: 'E4' }, { time: 18.5, note: 'E4' }, { time: 18.75, note: 'D4' }, { time: 19.0, note: 'D4' },
+      { time: 19.45, note: 'C4' },
+    ],
   },
   {
-    // かたつむり（2/4拍子・♩=90 -> 1拍 = 0.6667s、各小節2拍固定）
     id: 'katatsumuri',
     title: 'かたつむり',
     composer: '文部省唱歌（PD）',
-    notes: (() => {
-      const b = 60 / 90; // 0.6667s
-      const start = 2.0;
-      const pushBar = (
-        arr: SheetNote[],
-        barIndex: number,
-        events: Array<{ beat: number; note: string }>
-      ) => {
-        const barStart = start + barIndex * 2 * b;
-        events.forEach((ev) => {
-          arr.push({ time: Number((barStart + ev.beat * b).toFixed(4)), note: ev.note });
-        });
-      };
-      const out: SheetNote[] = [];
-      // 1〜4小節：ソ(0, 0.75) ソ(1, 0.25) ミ(1.5, 0.5) / ド(0, 0.75) ド(1, 0.25) ドレ(1.5, 0.25+0.25) / ミ(0, 0.75) ミ(1, 0.25) レド(1.5, 0.25+0.25) / レ(0, 1.0) [4分休]
-      pushBar(out, 0, [
-        { beat: 0, note: 'G4' }, { beat: 0.75, note: 'G4' }, { beat: 1.0, note: 'G4' }, { beat: 1.5, note: 'E4' },
-      ]);
-      pushBar(out, 1, [
-        { beat: 0, note: 'C4' }, { beat: 0.75, note: 'C4' }, { beat: 1.0, note: 'C4' }, { beat: 1.5, note: 'C4' }, { beat: 1.75, note: 'D4' },
-      ]);
-      pushBar(out, 2, [
-        { beat: 0, note: 'E4' }, { beat: 0.75, note: 'E4' }, { beat: 1.0, note: 'E4' }, { beat: 1.5, note: 'D4' }, { beat: 1.75, note: 'C4' },
-      ]);
-      pushBar(out, 3, [
-        { beat: 0, note: 'D4' },
-      ]);
-      // 5〜8小節：ミ(0, 0.75) ファ(0.75, 0.25) ソラ(1.0, 0.5+0.5) / ソ(0, 0.75) ソ(1, 0.25) ソミ(1.5, 0.25+0.25) / レレ(0, 0.5+0.5) ドレ(1.0, 0.25+0.25) レ(1.5, 0.5) / ミ(0, 1.0) [4分休]
-      pushBar(out, 4, [
-        { beat: 0, note: 'E4' }, { beat: 0.75, note: 'F4' }, { beat: 1.0, note: 'G4' }, { beat: 1.5, note: 'A4' },
-      ]);
-      pushBar(out, 5, [
-        { beat: 0, note: 'G4' }, { beat: 0.75, note: 'G4' }, { beat: 1.0, note: 'G4' }, { beat: 1.5, note: 'G4' }, { beat: 1.75, note: 'E4' },
-      ]);
-      pushBar(out, 6, [
-        { beat: 0, note: 'D4' }, { beat: 0.5, note: 'D4' }, { beat: 1.0, note: 'D4' }, { beat: 1.25, note: 'C4' }, { beat: 1.5, note: 'D4' },
-      ]);
-      pushBar(out, 7, [
-        { beat: 0, note: 'E4' },
-      ]);
-      // 9〜12小節：ソ(0, 0.5) ド↑(0.5, 0.5) ド↑ソ(1.0, 0.5+0.5) / ミ(0, 0.5) ソ(0.5, 0.5) ソミ(1.0, 0.5+0.5) / ド(0, 0.5) ミ(0.5, 0.5) ミ(1.0, 0.75) レ(1.75, 0.25) / ド(0, 1.0) [4分休]
-      pushBar(out, 8, [
-        { beat: 0, note: 'G4' }, { beat: 0.5, note: 'C5' }, { beat: 1.0, note: 'C5' }, { beat: 1.5, note: 'G4' },
-      ]);
-      pushBar(out, 9, [
-        { beat: 0, note: 'E4' }, { beat: 0.5, note: 'G4' }, { beat: 1.0, note: 'G4' }, { beat: 1.5, note: 'E4' },
-      ]);
-      pushBar(out, 10, [
-        { beat: 0, note: 'C4' }, { beat: 0.5, note: 'E4' }, { beat: 1.0, note: 'E4' }, { beat: 1.75, note: 'D4' },
-      ]);
-      pushBar(out, 11, [
-        { beat: 0, note: 'C4' },
-      ]);
-      return out;
-    })(),
-  },
-  {
-    // 線路は続くよどこまでも（4/4拍子・♩=116 -> 1拍 = 0.5172s、各小節4拍固定）
-    id: 'senro',
-    title: '線路は続くよどこまでも',
-    composer: 'アメリカ民謡（PD）',
-    notes: (() => {
-      const b = 60 / 116; // 約0.5172s
-      const start = 2.0;
-      const pushBar = (
-        arr: SheetNote[],
-        barIndex: number,
-        events: Array<{ beat: number; note: string }>
-      ) => {
-        const barStart = start + barIndex * 4 * b;
-        events.forEach((ev) => {
-          arr.push({ time: Number((barStart + ev.beat * b).toFixed(4)), note: ev.note });
-        });
-      };
-      const out: SheetNote[] = [];
-      // 1〜4小節
-      pushBar(out, 0, [
-        { beat: 0, note: 'C4' }, { beat: 1.5, note: 'G4' }, { beat: 2.0, note: 'C4' }, { beat: 2.75, note: 'G4' }, { beat: 3.0, note: 'C4' }, { beat: 3.5, note: 'D4' },
-      ]);
-      pushBar(out, 1, [
-        { beat: 0, note: 'E4' }, { beat: 2.0, note: 'C4' },
-      ]);
-      pushBar(out, 2, [
-        { beat: 0, note: 'F4' }, { beat: 1.5, note: 'F4' }, { beat: 2.0, note: 'C4' }, { beat: 2.5, note: 'D4' }, { beat: 3.0, note: 'E4' },
-      ]);
-      pushBar(out, 3, [
-        { beat: 0, note: 'C4' },
-      ]);
-      // 5〜8小節
-      pushBar(out, 4, [
-        { beat: 0, note: 'C4' }, { beat: 1.5, note: 'G4' }, { beat: 2.0, note: 'C4' }, { beat: 2.75, note: 'G4' }, { beat: 3.0, note: 'C4' }, { beat: 3.5, note: 'D4' },
-      ]);
-      pushBar(out, 5, [
-        { beat: 0, note: 'E4' }, { beat: 2.0, note: 'C4' },
-      ]);
-      pushBar(out, 6, [
-        { beat: 0, note: 'D4' }, { beat: 1.5, note: 'D4' }, { beat: 2.0, note: 'D4' }, { beat: 2.5, note: 'E4' }, { beat: 3.0, note: 'D4' },
-      ]);
-      pushBar(out, 7, [
-        { beat: 0, note: 'D4' },
-      ]);
-      // 9〜12小節（#ド = C#4）
-      pushBar(out, 8, [
-        { beat: 0, note: 'D4' }, { beat: 1.5, note: 'C#4' }, { beat: 2.0, note: 'D4' }, { beat: 2.5, note: 'E4' }, { beat: 3.0, note: 'D4' }, { beat: 3.5, note: 'C4' },
-      ]);
-      pushBar(out, 9, [
-        { beat: 0, note: 'C4' }, { beat: 2.0, note: 'G4' },
-      ]);
-      pushBar(out, 10, [
-        { beat: 0, note: 'F4' }, { beat: 1.5, note: 'F4' }, { beat: 2.0, note: 'C4' }, { beat: 2.5, note: 'D4' }, { beat: 3.0, note: 'E4' },
-      ]);
-      pushBar(out, 11, [
-        { beat: 0, note: 'C4' },
-      ]);
-      // 13〜16小節
-      pushBar(out, 12, [
-        { beat: 0, note: 'A4' }, { beat: 1.5, note: 'B4' }, { beat: 2.0, note: 'C5' }, { beat: 2.5, note: 'B4' }, { beat: 3.0, note: 'C5' }, { beat: 3.5, note: 'A4' },
-      ]);
-      pushBar(out, 13, [
-        { beat: 0, note: 'G4' }, { beat: 1.5, note: 'G4' }, { beat: 2.0, note: 'C4' },
-      ]);
-      pushBar(out, 14, [
-        { beat: 0, note: 'E4' }, { beat: 1.5, note: 'F4' }, { beat: 2.0, note: 'E4' }, { beat: 2.5, note: 'D4' }, { beat: 3.0, note: 'C4' },
-      ]);
-      pushBar(out, 15, [
-        { beat: 0, note: 'C4' },
-      ]);
-      return out;
-    })(),
-  },
-  {
-    // 七つの子（4/4拍子・♩=100 -> 1拍 = 0.60s、各小節4拍固定）
-    id: 'nanatsu_no_ko',
-    title: '七つの子',
-    composer: '本居長世（PD）',
-    notes: (() => {
-      const b = 60 / 100; // 0.60s
-      const start = 2.0;
-      const pushBar = (
-        arr: SheetNote[],
-        barIndex: number,
-        events: Array<{ beat: number; note: string }>
-      ) => {
-        const barStart = start + barIndex * 4 * b;
-        events.forEach((ev) => {
-          arr.push({ time: Number((barStart + ev.beat * b).toFixed(4)), note: ev.note });
-        });
-      };
-      const out: SheetNote[] = [];
-      // 1〜4小節
-      pushBar(out, 0, [
-        { beat: 0, note: 'E4' }, { beat: 1.5, note: 'D4' }, { beat: 2.0, note: 'C4' }, { beat: 3.0, note: 'D4' },
-      ]);
-      pushBar(out, 1, [
-        { beat: 0, note: 'E4' }, { beat: 1.0, note: 'C4' }, { beat: 1.5, note: 'A4' }, { beat: 2.0, note: 'C4' }, { beat: 2.5, note: 'G4' },
-      ]);
-      pushBar(out, 2, [
-        { beat: 0, note: 'A4' }, { beat: 0.5, note: 'G4' }, { beat: 1.0, note: 'E4' }, { beat: 1.5, note: 'G4' }, { beat: 2.0, note: 'A4' }, { beat: 2.5, note: 'C5' }, { beat: 3.0, note: 'D4' },
-      ]);
-      pushBar(out, 3, [
-        { beat: 0, note: 'D4' },
-      ]);
-      // 5〜8小節
-      pushBar(out, 4, [
-        { beat: 0, note: 'E4' }, { beat: 1.5, note: 'F4' }, { beat: 2.0, note: 'G4' }, { beat: 3.0, note: 'E4' },
-      ]);
-      pushBar(out, 5, [
-        { beat: 0, note: 'G4' }, { beat: 1.0, note: 'A4' }, { beat: 1.5, note: 'G4' }, { beat: 2.0, note: 'E4' }, { beat: 2.5, note: 'C5' },
-      ]);
-      pushBar(out, 6, [
-        { beat: 0, note: 'D4' }, { beat: 0.5, note: 'D4' }, { beat: 1.0, note: 'E4' }, { beat: 1.5, note: 'C4' }, { beat: 2.0, note: 'A4' }, { beat: 2.5, note: 'G4' }, { beat: 3.0, note: 'C4' },
-      ]);
-      pushBar(out, 7, [
-        { beat: 0, note: 'C4' },
-      ]);
-      // 9〜12小節
-      pushBar(out, 8, [
-        { beat: 0, note: 'D4' }, { beat: 1.5, note: 'D4' }, { beat: 2.0, note: 'D4' },
-      ]);
-      pushBar(out, 9, [
-        { beat: 0, note: 'D4' }, { beat: 1.5, note: 'D4' }, { beat: 2.0, note: 'D4' }, { beat: 3.0, note: 'E4' },
-      ]);
-      pushBar(out, 10, [
-        { beat: 0, note: 'F4' }, { beat: 0.5, note: 'E4' }, { beat: 1.0, note: 'D4' }, { beat: 1.5, note: 'D4' }, { beat: 2.0, note: 'D4' }, { beat: 2.5, note: 'E4' }, { beat: 3.0, note: 'A4' },
-      ]);
-      pushBar(out, 11, [
-        { beat: 0, note: 'A4' },
-      ]);
-      // 13〜16小節
-      pushBar(out, 12, [
-        { beat: 0, note: 'G4' }, { beat: 1.5, note: 'G4' }, { beat: 2.0, note: 'G4' },
-      ]);
-      pushBar(out, 13, [
-        { beat: 0, note: 'C5' }, { beat: 1.5, note: 'C5' }, { beat: 2.0, note: 'C5' }, { beat: 3.0, note: 'D4' },
-      ]);
-      pushBar(out, 14, [
-        { beat: 0, note: 'E4' }, { beat: 1.0, note: 'F4' }, { beat: 1.5, note: 'A4' }, { beat: 2.0, note: 'C5' }, { beat: 3.0, note: 'D4' },
-      ]);
-      pushBar(out, 15, [
-        { beat: 0, note: 'D4' },
-      ]);
-      // 17〜20小節
-      pushBar(out, 16, [
-        { beat: 0, note: 'E4' }, { beat: 1.5, note: 'D4' }, { beat: 2.0, note: 'C4' }, { beat: 3.0, note: 'D4' },
-      ]);
-      pushBar(out, 17, [
-        { beat: 0, note: 'E4' }, { beat: 1.0, note: 'C4' }, { beat: 1.5, note: 'A4' }, { beat: 2.0, note: 'C4' }, { beat: 2.5, note: 'G4' },
-      ]);
-      pushBar(out, 18, [
-        { beat: 0, note: 'A4' }, { beat: 0.5, note: 'G4' }, { beat: 1.0, note: 'E4' }, { beat: 1.5, note: 'G4' }, { beat: 2.0, note: 'A4' }, { beat: 2.5, note: 'C5' }, { beat: 3.0, note: 'D4' },
-      ]);
-      pushBar(out, 19, [
-        { beat: 0, note: 'D4' },
-      ]);
-      // 21〜24小節
-      pushBar(out, 20, [
-        { beat: 0, note: 'E4' }, { beat: 1.5, note: 'F4' }, { beat: 2.0, note: 'G4' }, { beat: 3.0, note: 'E4' },
-      ]);
-      pushBar(out, 21, [
-        { beat: 0, note: 'G4' }, { beat: 1.0, note: 'A4' }, { beat: 1.5, note: 'G4' }, { beat: 2.0, note: 'E4' }, { beat: 2.5, note: 'C5' },
-      ]);
-      pushBar(out, 22, [
-        { beat: 0, note: 'D4' }, { beat: 0.5, note: 'D4' }, { beat: 1.0, note: 'E4' }, { beat: 1.5, note: 'C4' }, { beat: 2.0, note: 'A4' }, { beat: 2.5, note: 'G4' }, { beat: 3.0, note: 'C4' },
-      ]);
-      pushBar(out, 23, [
-        { beat: 0, note: 'C4' },
-      ]);
-      return out;
-    })(),
-  },
-  {
-    // 蛍の光（4/4拍子・♩=104 -> 1拍 = 0.5769s、弱起4拍目から開始、各小節4拍固定）
-    id: 'hotaru_no_hikari',
-    title: '蛍の光',
-    composer: 'スコットランド民謡（PD）',
-    notes: (() => {
-      const b = 60 / 104; // 約0.5769s
-      const start = 2.0;
-      const pushBar = (
-        arr: SheetNote[],
-        barIndex: number,
-        events: Array<{ beat: number; note: string }>
-      ) => {
-        const barStart = start + barIndex * 4 * b;
-        events.forEach((ev) => {
-          arr.push({ time: Number((barStart + ev.beat * b).toFixed(4)), note: ev.note });
-        });
-      };
-      const out: SheetNote[] = [];
-      // 弱起（4拍目「ソ」）
-      out.push({ time: Number((start + 3 * b).toFixed(4)), note: 'G4' });
-      // 1〜4小節（barIndex 1〜4）
-      pushBar(out, 1, [
-        { beat: 0, note: 'C4' }, { beat: 1.5, note: 'C4' }, { beat: 2.0, note: 'C4' }, { beat: 3.0, note: 'E4' },
-      ]);
-      pushBar(out, 2, [
-        { beat: 0, note: 'D4' }, { beat: 1.5, note: 'C4' }, { beat: 2.0, note: 'D4' }, { beat: 3.0, note: 'E4' },
-      ]);
-      pushBar(out, 3, [
-        { beat: 0, note: 'C4' }, { beat: 1.5, note: 'C4' }, { beat: 2.0, note: 'E4' }, { beat: 3.0, note: 'G4' },
-      ]);
-      pushBar(out, 4, [
-        { beat: 0, note: 'A4' }, { beat: 3.0, note: 'A4' },
-      ]);
-      // 5〜8小節
-      pushBar(out, 5, [
-        { beat: 0, note: 'G4' }, { beat: 1.5, note: 'E4' }, { beat: 2.0, note: 'E4' }, { beat: 3.0, note: 'C4' },
-      ]);
-      pushBar(out, 6, [
-        { beat: 0, note: 'D4' }, { beat: 1.5, note: 'C4' }, { beat: 2.0, note: 'D4' }, { beat: 3.0, note: 'E4' },
-      ]);
-      pushBar(out, 7, [
-        { beat: 0, note: 'C4' }, { beat: 1.5, note: 'A4' }, { beat: 2.0, note: 'A4' }, { beat: 3.0, note: 'G4' },
-      ]);
-      pushBar(out, 8, [
-        { beat: 0, note: 'C4' }, { beat: 3.0, note: 'A4' },
-      ]);
-      // 9〜12小節
-      pushBar(out, 9, [
-        { beat: 0, note: 'G4' }, { beat: 1.5, note: 'E4' }, { beat: 2.0, note: 'E4' }, { beat: 3.0, note: 'C4' },
-      ]);
-      pushBar(out, 10, [
-        { beat: 0, note: 'D4' }, { beat: 1.5, note: 'C4' }, { beat: 2.0, note: 'D4' }, { beat: 3.0, note: 'A4' },
-      ]);
-      pushBar(out, 11, [
-        { beat: 0, note: 'G4' }, { beat: 1.5, note: 'E4' }, { beat: 2.0, note: 'E4' }, { beat: 3.0, note: 'G4' },
-      ]);
-      pushBar(out, 12, [
-        { beat: 0, note: 'A4' }, { beat: 3.0, note: 'A4' },
-      ]);
-      // 13〜16小節
-      pushBar(out, 13, [
-        { beat: 0, note: 'G4' }, { beat: 1.5, note: 'E4' }, { beat: 2.0, note: 'E4' }, { beat: 3.0, note: 'C4' },
-      ]);
-      pushBar(out, 14, [
-        { beat: 0, note: 'D4' }, { beat: 1.5, note: 'C4' }, { beat: 2.0, note: 'D4' }, { beat: 3.0, note: 'E4' },
-      ]);
-      pushBar(out, 15, [
-        { beat: 0, note: 'C4' }, { beat: 1.5, note: 'A4' }, { beat: 2.0, note: 'A4' }, { beat: 3.0, note: 'G4' },
-      ]);
-      pushBar(out, 16, [
-        { beat: 0, note: 'C4' },
-      ]);
-      return out;
-    })(),
+    notes: [
+      { time: 2.0, note: 'G4' }, { time: 2.55, note: 'G4' }, { time: 2.8, note: 'G4' }, { time: 3.1, note: 'E4' },
+      { time: 3.65, note: 'C4' }, { time: 4.2, note: 'C4' }, { time: 4.45, note: 'C4' }, { time: 4.75, note: 'D4' },
+      { time: 5.3, note: 'E4' }, { time: 5.85, note: 'E4' }, { time: 6.1, note: 'D4' }, { time: 6.4, note: 'C4' },
+      { time: 6.95, note: 'D4' },
+      { time: 8.05, note: 'E4' }, { time: 8.5, note: 'F4' }, { time: 8.8, note: 'G4' }, { time: 9.1, note: 'A4' },
+      { time: 9.65, note: 'G4' }, { time: 10.2, note: 'G4' }, { time: 10.45, note: 'G4' }, { time: 10.75, note: 'E4' },
+      { time: 11.3, note: 'D4' }, { time: 11.6, note: 'D4' }, { time: 11.9, note: 'C4' }, { time: 12.2, note: 'D4' },
+      { time: 12.75, note: 'E4' },
+      { time: 13.85, note: 'G4' }, { time: 14.3, note: 'C5' }, { time: 14.6, note: 'C5' }, { time: 14.9, note: 'G4' },
+      { time: 15.45, note: 'E4' }, { time: 15.75, note: 'G4' }, { time: 16.05, note: 'G4' }, { time: 16.35, note: 'E4' },
+      { time: 16.9, note: 'C4' }, { time: 17.2, note: 'E4' }, { time: 17.65, note: 'E4' }, { time: 17.95, note: 'D4' },
+      { time: 18.5, note: 'C4' },
+    ],
   },
 ];
 
