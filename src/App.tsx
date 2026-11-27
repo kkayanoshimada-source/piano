@@ -164,11 +164,11 @@ const SONGS: Song[] = [
     notes: [
       { time: 2.0, note: 'C4' }, { time: 2.5, note: 'C4' }, { time: 2.75, note: 'D4' },
       { time: 3.0, note: 'E4' }, { time: 3.25, note: 'E4' }, { time: 3.5, note: 'G4' },
-      { time: 4.0, note: 'E4' }, { time: 4.25, note: 'E4' }, { time: 4.5, note: 'D4' }, 
-      { time: 4.75, note: 'D4' },{ time: 5.0, note: 'C4' },
+      { time: 4.0, note: 'E4' }, { time: 4.25, note: 'E4' }, { time: 4.5, note: 'D4' },
+      { time: 4.75, note: 'D4' }, { time: 5.0, note: 'C4' },
       { time: 6.0, note: 'E4' }, { time: 6.5, note: 'E4' }, { time: 6.75, note: 'F4' },
       { time: 7.0, note: 'G4' }, { time: 7.5, note: 'C5' },
-      { time: 8.0, note: 'A4' }, { time: 8.5, note: 'C5' },{ time: 9.0, note: 'G4' },
+      { time: 8.0, note: 'A4' }, { time: 8.5, note: 'C5' }, { time: 9.0, note: 'G4' },
       { time: 10.0, note: 'C5' }, { time: 10.5, note: 'C5' },
       { time: 11.0, note: 'B4' }, { time: 11.5, note: 'G4' },
       { time: 12.0, note: 'A4' }, { time: 12.25, note: 'A4' }, { time: 12.5, note: 'A4' }, { time: 12.75, note: 'A4' },
@@ -176,7 +176,7 @@ const SONGS: Song[] = [
       { time: 14.0, note: 'C4' }, { time: 14.5, note: 'C4' }, { time: 14.75, note: 'D4' },
       { time: 15.0, note: 'E4' }, { time: 15.25, note: 'E4' }, { time: 15.5, note: 'G4' },
       { time: 16.0, note: 'E4' }, { time: 16.25, note: 'E4' }, { time: 16.5, note: 'D4' },
-      { time: 16.75, note: 'D4' },{ time: 17.0, note: 'C4' },
+      { time: 16.75, note: 'D4' }, { time: 17.0, note: 'C4' },
     ],
   },
   {
@@ -474,7 +474,7 @@ export default function App() {
     return activeNotes.some((n) => {
       if (n.hit || n.missed || n.note !== noteName) return false;
       const diff = n.time - effectiveTime;
-      return diff >= -0.25 && diff <= 1.1;
+      return diff >= -0.25 && diff <= 0.42;
     });
   };
 
@@ -498,7 +498,7 @@ export default function App() {
     .filter((n) => n.x >= -15 && n.x <= 115);
 
   const nextTargetNote = isRunning
-    ? visibleNotesCoords.find((n) => !n.missed && n.timeDiff >= -0.25 && n.timeDiff <= 1.1)
+    ? visibleNotesCoords.find((n) => !n.missed && n.timeDiff >= -0.25 && n.timeDiff <= 0.42)
     : undefined;
 
   return (
@@ -662,7 +662,7 @@ export default function App() {
             {visibleNotesCoords.map((note) => {
               const keyInfo = KEYS.find((k) => k.note === note.note);
               const isNext =
-                isRunning && !note.missed && note.timeDiff >= -0.25 && note.timeDiff <= 1.1;
+                isRunning && !note.missed && note.timeDiff >= -0.25 && note.timeDiff <= 0.42;
 
               return (
                 <div
